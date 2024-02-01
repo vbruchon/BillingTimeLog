@@ -49,6 +49,7 @@ model User {
   updatedAt     DateTime  @updatedAt
   accounts      Account[]
   sessions      Session[]
+  clients       Client[]
 }
 
 model VerificationToken {
@@ -58,4 +59,15 @@ model VerificationToken {
 
   @@unique([identifier, token])
   @@map("verificationtokens")
+}
+
+model Client {
+  id            String    @id @default(cuid())
+  name          String
+  email         String    @unique
+  emailVerified DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime? @updatedAt
+  userId        String
+  user          User      @relation(fields: [userId], references: [id])
 }
