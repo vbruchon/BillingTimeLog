@@ -52,7 +52,7 @@ export const LoggedInButton = (props: LoggedInButtonProps) => {
                             'hover:cursor-pointer hover:bg-accent hover:text-accent-foreground'
                         )}
                     >
-                        <Avatar className="mr-4 h-8 w-4">
+                        <Avatar className="mr-4 size-9">
                             <AvatarFallback>
                                 {props.user?.name?.[0]}
                             </AvatarFallback>

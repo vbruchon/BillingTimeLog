@@ -17,6 +17,7 @@ export const SideBar = () => {
             {links.map((link) => (
                 <a
                     href={link.href}
+                    key={link.name}
                     className={cn(
                         'flex gap-x-4 rounded-lg p-4 '
                         //pathname === link.href ? linkActiveStyle : linkStyle
