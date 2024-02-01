@@ -1,5 +1,4 @@
-import { SearchBar } from '@/components/features/layout/dashboard/SearchBar'
-import { SideBar } from '@/components/features/layout/dashboard/SideBar'
+import { SideBar } from '@/components/layout/dashboard/SideBar'
 import { PropsWithChildren } from 'react'
 
 const LayoutDashboard = ({ children }: PropsWithChildren) => {

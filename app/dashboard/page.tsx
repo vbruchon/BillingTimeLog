@@ -1,4 +1,4 @@
-import { SearchBar } from '@/components/features/layout/dashboard/SearchBar'
+import { SearchBar } from '@/components/layout/dashboard/SearchBar'
 import React from 'react'
 
 function DashboardPage() {

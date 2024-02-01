@@ -10,7 +10,7 @@ import {
     TableRow,
 } from '@/components/ui/table'
 import { toast } from 'sonner'
-import { CustomerEntry } from './components/CustomerEntry'
+import { CustomerEntry } from './CustomerEntry'
 import { useMutation } from '@tanstack/react-query'
 import { deleteCustomer } from './customers.action'
 

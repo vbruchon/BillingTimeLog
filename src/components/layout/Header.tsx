@@ -36,8 +36,8 @@ import { SiteConfig } from '@/lib/site-config'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Typography } from '@/components/ui/Typography'
-import { AuthButton } from '../auth/AuthButton'
 import { ThemeToggleButton } from '../theme/ThemeToggleButton'
+import { AuthButton } from '../features/auth/AuthButton'
 
 export function Header() {
     return (
