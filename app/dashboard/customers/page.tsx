@@ -1,5 +1,4 @@
 import { Button } from '@/components/ui/button'
-import { getRequiredAuthSession } from '@/lib/auth'
 import {
     Table,
     TableBody,
@@ -9,20 +8,11 @@ import {
     TableRow,
 } from '@/components/ui/table'
 import { CustomerEntry } from './CustomerEntry'
-import { PrismaClient } from '@prisma/client'
-
-const prisma = new PrismaClient()
-
-export { prisma }
+import { getCustomers } from '@/lib/db/query'
 
 export default async function CustomersPage() {
-    const session = await getRequiredAuthSession()
+    const customers = await getCustomers()
 
-    const customers = await prisma.customer.findMany({
-        where: {
-            userId: session.user.id,
-        },
-    })
     return (
         <div className="container mx-auto p-8">
             <div className="mb-8 flex items-center justify-between rounded-lg bg-gray-800 p-4">

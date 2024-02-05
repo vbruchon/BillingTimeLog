@@ -9,19 +9,10 @@ import {
 } from '@/components/ui/table'
 import { ProjectEntry } from './ProjectEntry'
 import { prisma } from '@/lib/db/prisma'
+import { getProjects } from '@/lib/db/query'
 
 export default async function ProjectsPage() {
-    const projects = await prisma.project.findMany({
-        select: {
-            id: true,
-            name: true,
-            customer: {
-                select: {
-                    name: true,
-                },
-            },
-        },
-    })
+    const projects = await getProjects()
     console.log({ projects })
 
     return (

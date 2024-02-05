@@ -1,6 +1,5 @@
 import { Pencil } from 'lucide-react'
 import { TableCell, TableRow } from '@/components/ui/table'
-import { Typography } from '@/components/ui/Typography'
 import Link from 'next/link'
 import { DeleteButtonWithConfirmation } from '@/components/layout/dashboard/button/DeleteButtonWithConfirmation'
 
