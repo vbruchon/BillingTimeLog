@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button'
 import { getRequiredAuthSession } from '@/lib/auth'
-import { prisma } from '@/lib/db/prisma'
+//import { prisma } from '@/lib/db/prisma'
 import {
     Table,
     TableBody,
@@ -13,13 +13,18 @@ import { toast } from 'sonner'
 import { CustomerEntry } from './CustomerEntry'
 import { useMutation } from '@tanstack/react-query'
 import { deleteCustomer } from './customers.action'
+import { PrismaClient } from '@prisma/client'
+
+const prisma = new PrismaClient()
+
+export { prisma }
 
 export default async function CustomersPage() {
     const session = await getRequiredAuthSession()
 
-    const clients = await prisma.client.findMany({
+    const clients = await prisma.customer.findMany({
         where: {
-            user: session.user,
+            userId: session.user.id,
         },
     })
     return (

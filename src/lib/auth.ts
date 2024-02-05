@@ -27,8 +27,6 @@ export const getRequiredAuthSession = async (
         throw new Error('Unauthorized')
     }
 
-    console.log(session)
-
     return session as {
         user: {
             id: string

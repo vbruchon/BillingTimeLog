@@ -40,16 +40,16 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String     @id @default(cuid())
   name          String?
-  email         String?   @unique
+  email         String?    @unique
   emailVerified DateTime?
   image         String?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
   accounts      Account[]
   sessions      Session[]
-  clients       Client[]
+  clients       Customer[]
 }
 
 model VerificationToken {
@@ -61,7 +61,7 @@ model VerificationToken {
   @@map("verificationtokens")
 }
 
-model Client {
+model Customer {
   id            String    @id @default(cuid())
   name          String
   email         String    @unique

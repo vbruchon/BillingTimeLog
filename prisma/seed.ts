@@ -4,11 +4,11 @@ const { faker } = require('@faker-js/faker')
 const prisma = new PrismaClient()
 
 const main = async () => {
-    const clients: any[] = []
+    const customers: any[] = []
 
     for (let i = 0; i < 10; i++) {
-        clients.push(
-            await prisma.client.create({
+        customers.push(
+            await prisma.customer.create({
                 data: {
                     name: faker.company.name(),
                     email: faker.internet.email(),
@@ -19,7 +19,7 @@ const main = async () => {
         )
     }
 
-    console.log('Clients seeded:', clients)
+    console.log('Customer seeded:', customers)
 }
 
 main()
