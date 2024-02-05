@@ -1,12 +1,16 @@
 'use client'
 import { cn } from '@/lib/utils'
-import { Home, UserCog, Users } from 'lucide-react'
-import { useRouter } from 'next/router'
+import { FolderKanban, Home, UserCog, Users } from 'lucide-react'
 
 export const SideBar = () => {
     const links = [
         { name: 'Home', icone: <Home />, href: '/dashboard' },
-        { name: 'Clients', icone: <Users />, href: '/dashboard/clients' },
+        { name: 'Customers', icone: <Users />, href: '/dashboard/customers' },
+        {
+            name: 'Projects',
+            icone: <FolderKanban />,
+            href: '/dashboard/projects',
+        },
         { name: 'My Account', icone: <UserCog />, href: '/dashboard/account' },
     ]
     const linkActiveStyle = 'bg-primary-foreground ml-4 border-2 border-primary'
@@ -18,10 +22,7 @@ export const SideBar = () => {
                 <a
                     href={link.href}
                     key={link.name}
-                    className={cn(
-                        'flex gap-x-4 rounded-lg p-4 '
-                        //pathname === link.href ? linkActiveStyle : linkStyle
-                    )}
+                    className={cn('flex gap-x-4 rounded-lg p-4 ')}
                 >
                     {link.icone}
                     {link.name}

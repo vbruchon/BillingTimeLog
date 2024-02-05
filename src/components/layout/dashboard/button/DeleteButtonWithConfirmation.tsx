@@ -15,11 +15,9 @@ import { Trash2 } from 'lucide-react'
 import { deleteCustomer } from '../../../../../app/dashboard/customers/customers.action'
 
 type DeleteButtonProps = {
-    clientId: string
+    id: string
 }
-export const DeleteButtonWithConfirmation = ({
-    clientId,
-}: DeleteButtonProps) => {
+export const DeleteButtonWithConfirmation = ({ id }: DeleteButtonProps) => {
     return (
         <AlertDialog>
             <AlertDialogTrigger asChild>
@@ -44,7 +42,7 @@ export const DeleteButtonWithConfirmation = ({
                         <form>
                             <Button
                                 variant={'destructive'}
-                                formAction={() => deleteCustomer(clientId)}
+                                formAction={() => deleteCustomer(id)}
                             >
                                 <Trash2 size={22} />
                             </Button>
