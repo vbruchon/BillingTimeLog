@@ -71,6 +71,7 @@ export const getHours = async () => {
             rate: true,
             invoiceStatus: true,
             createdAt: true,
+            projectId: true,
             project: {
                 select: {
                     name: true,
@@ -94,12 +95,7 @@ export const getHourEntryById = async (hourId: string) => {
             duration: true,
             rate: true,
             invoiceStatus: true,
-            createdAt: true,
-            project: {
-                select: {
-                    name: true,
-                },
-            },
+            projectId: true,
         },
     })
     return hourEntry

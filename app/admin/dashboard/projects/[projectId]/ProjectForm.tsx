@@ -22,7 +22,6 @@ import {
     SelectValue,
 } from '@/components/ui/select'
 import { useRouter } from 'next/navigation'
-import { CustomerEntryProps } from '../../customers/CustomerEntry'
 
 export type ProjectFormProps = {
     defaultValue?: ProjectFormSchema & {
