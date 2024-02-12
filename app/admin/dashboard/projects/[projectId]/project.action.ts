@@ -37,3 +37,13 @@ export const projectActionEdit = authentifiedAction(
         return { message: 'Project update successfully !', updatedProject }
     }
 )
+
+export const projectActionCreate = authentifiedAction(
+    ProjectFormSchema,
+    async (props) => {
+        const newProject = await prisma.project.create({
+            data: { ...props },
+        })
+        return { message: 'Project created successfully!', newProject }
+    }
+)

@@ -9,6 +9,7 @@ import {
 } from '@/components/ui/table'
 import { ProjectEntry } from './ProjectEntry'
 import { getProjects } from '@/lib/db/query'
+import Link from 'next/link'
 
 export default async function ProjectsPage() {
     const projects = await getProjects()
@@ -20,9 +21,12 @@ export default async function ProjectsPage() {
                 <h1 className="text-2xl font-semibold text-white">
                     ProjectsPage
                 </h1>
-                <Button className="bg-blue-500 text-white hover:bg-blue-700">
+                <Link
+                    href={'/admin/dashboard/projects/new'}
+                    className="bg-blue-500 text-white hover:bg-blue-700"
+                >
                     Add Project
-                </Button>
+                </Link>
             </div>
 
             <Table>

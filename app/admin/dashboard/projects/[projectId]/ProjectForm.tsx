@@ -2,7 +2,6 @@
 import {
     Form,
     FormControl,
-    FormDescription,
     FormField,
     FormItem,
     FormLabel,
@@ -13,7 +12,7 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { toast } from 'sonner'
 import { ProjectFormSchema } from './project.schema'
-import { projectActionEdit } from './project.action'
+import { projectActionCreate, projectActionEdit } from './project.action'
 import { CustomerFormSchema } from '../../customers/customers.schema'
 import {
     Select,
@@ -22,47 +21,59 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/components/ui/select'
+import { useRouter } from 'next/navigation'
+import { CustomerEntryProps } from '../../customers/CustomerEntry'
 
 export type ProjectFormProps = {
     defaultValue?: ProjectFormSchema & {
         id: string
     }
-    projectId: string
-    otherCustomers: CustomerFormSchema[]
-    projectCustomer?: string
+    customers: {
+        id: string
+        name: string
+        email: string
+    }[]
 }
 
-export const ProjectForm = ({
-    defaultValue,
-    projectId,
-    otherCustomers,
-    projectCustomer,
-}: ProjectFormProps) => {
+export const ProjectForm = ({ defaultValue, customers }: ProjectFormProps) => {
     const form = useZodForm({
         schema: ProjectFormSchema,
         defaultValues: defaultValue,
     })
+
+    const router = useRouter()
+
+    const projectCustomer = defaultValue
+        ? customers.find((customer) => customer.id === defaultValue?.customerId)
+        : null
+    const otherCustomers = defaultValue
+        ? customers.filter(
+              (customer) => customer.id !== defaultValue?.customerId
+          )
+        : null
+
     return (
         <Form
             form={form}
             className="flex items-center"
             onSubmit={async (values) => {
                 if (defaultValue) {
-                    const { data, serverError } = await projectActionEdit({
-                        projectId: projectId,
-                        data: values,
-                    })
+                    const { data, serverError } = defaultValue
+                        ? await projectActionEdit({
+                              projectId: defaultValue.id,
+                              data: values,
+                          })
+                        : await projectActionCreate(values)
+
                     if (data) {
-                        toast.success('hello')
-                        console.log(data.message)
+                        toast.success(data.message)
+                        router.back()
                         return
                     }
                     toast.error('Some error occurred', {
                         description: serverError,
                     })
                     return
-                } else {
-                    //create project
                 }
             }}
         >
@@ -89,19 +100,34 @@ export const ProjectForm = ({
                             <Select>
                                 <SelectTrigger className="w-[180px]">
                                     <SelectValue
-                                        placeholder={projectCustomer}
+                                        placeholder={
+                                            defaultValue
+                                                ? projectCustomer?.name
+                                                : 'Choose a customer'
+                                        }
                                         {...field}
                                     />
                                 </SelectTrigger>
                                 <SelectContent>
-                                    {otherCustomers.map((customer) => (
-                                        <SelectItem
-                                            key={customer.id}
-                                            value={customer.id}
-                                        >
-                                            {customer.name}
-                                        </SelectItem>
-                                    ))}
+                                    {defaultValue
+                                        ? otherCustomers?.map(
+                                              (customer, index) => (
+                                                  <SelectItem
+                                                      key={index}
+                                                      value={customer.name}
+                                                  >
+                                                      {customer.name}
+                                                  </SelectItem>
+                                              )
+                                          )
+                                        : customers.map((customer, index) => (
+                                              <SelectItem
+                                                  key={index}
+                                                  value={customer.name}
+                                              >
+                                                  {customer.name}
+                                              </SelectItem>
+                                          ))}
                                 </SelectContent>
                             </Select>
                         </FormControl>
