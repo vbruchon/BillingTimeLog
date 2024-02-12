@@ -37,3 +37,22 @@ export const customerActionEdit = authentifiedAction(
         return { message: 'Customer update successfully !', updatedCustomer }
     }
 )
+
+const CustomerActionCreateProps = z.object({
+    data: CustomerFormSchema,
+})
+
+export const customerActionCreate = authentifiedAction(
+    CustomerFormSchema,
+    async (props, { userId }) => {
+        const newCustomer = await prisma.customer.create({
+            data: {
+                ...props,
+                user: {
+                    connect: { id: userId },
+                },
+            },
+        })
+        return { message: 'Customer created successfully!', newCustomer }
+    }
+)

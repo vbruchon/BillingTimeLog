@@ -23,10 +23,7 @@ export default async function CustomerPage({
             <Typography variant={'h1'}>Edit Customer</Typography>
             <Card className="mx-auto mt-8 w-2/3">
                 <CardContent className="p-4">
-                    <CustomerForm
-                        defaultValue={customer}
-                        customerId={params.customerId}
-                    />
+                    <CustomerForm defaultValue={customer} />
                 </CardContent>
             </Card>
         </>

@@ -9,6 +9,7 @@ import {
 } from '@/components/ui/table'
 import { CustomerEntry } from './CustomerEntry'
 import { getCustomers } from '@/lib/db/query'
+import Link from 'next/link'
 
 export default async function CustomersPage() {
     const customers = await getCustomers()
@@ -19,9 +20,12 @@ export default async function CustomersPage() {
                 <h1 className="text-2xl font-semibold text-white">
                     CustomersPage
                 </h1>
-                <Button className="bg-blue-500 text-white hover:bg-blue-700">
+                <Link
+                    href={'/admin/dashboard/customers/new'}
+                    className="bg-blue-500 text-white hover:bg-blue-700"
+                >
                     Add Client
-                </Button>
+                </Link>
             </div>
 
             <Table>

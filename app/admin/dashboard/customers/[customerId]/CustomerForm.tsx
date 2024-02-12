@@ -12,24 +12,23 @@ import {
 import { CustomerFormSchema } from '../customers.schema'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { customerActionEdit } from '../customers.action'
+import { customerActionCreate, customerActionEdit } from '../customers.action'
 import { toast } from 'sonner'
+import { useRouter } from 'next/navigation'
 
 export type CustomerFormProps = {
     defaultValue?: CustomerFormSchema & {
         id: string
     }
-    customerId: string
 }
 
-export const CustomerForm = ({
-    defaultValue,
-    customerId,
-}: CustomerFormProps) => {
+export const CustomerForm = ({ defaultValue }: CustomerFormProps) => {
     const form = useZodForm({
         schema: CustomerFormSchema,
         defaultValues: defaultValue,
     })
+
+    const router = useRouter()
 
     return (
         <Form
@@ -37,12 +36,11 @@ export const CustomerForm = ({
             onSubmit={async (values) => {
                 if (defaultValue) {
                     const { data, serverError } = await customerActionEdit({
-                        customerId: customerId,
+                        customerId: defaultValue.id,
                         data: values,
                     })
                     if (data) {
-                        toast.success('hello')
-                        console.log(data.message)
+                        toast.success(data.message)
                         return
                     }
                     toast.error('Some error occurred', {
@@ -50,7 +48,17 @@ export const CustomerForm = ({
                     })
                     return
                 } else {
-                    //create customer
+                    const { data, serverError } =
+                        await customerActionCreate(values)
+                    if (data) {
+                        toast.success(data.message)
+                        router.back()
+                        return
+                    }
+                    toast.error('Some error occurred', {
+                        description: serverError,
+                    })
+                    return
                 }
             }}
         >
