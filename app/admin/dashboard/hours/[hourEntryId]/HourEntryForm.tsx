@@ -21,7 +21,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/components/ui/select'
-import { hourEntryActionEdit } from './hourEntry.action'
+import { hourEntryActionCreate, hourEntryActionEdit } from './hourEntry.action'
 
 export type CustomerFormProps = {
     defaultValue?: HourEntryFormSchema & {
@@ -53,23 +53,22 @@ export const HourEntryForm = ({
         <Form
             form={form}
             onSubmit={async (values) => {
-                if (defaultValue) {
-                    const { data, serverError } = await hourEntryActionEdit({
-                        hourEntryId: defaultValue.id,
-                        data: values,
-                    })
-                    if (data) {
-                        toast.success(data.message)
-                        router.back()
-                        return
-                    }
-                    toast.error('Some error occurred', {
-                        description: serverError,
-                    })
+                const { data, serverError } = defaultValue
+                    ? await hourEntryActionEdit({
+                          hourEntryId: defaultValue.id,
+                          data: values,
+                      })
+                    : await hourEntryActionCreate(values)
+
+                if (data) {
+                    toast.success(data.message)
+                    router.back()
                     return
-                } else {
-                    //create
                 }
+                toast.error('Some error occurred', {
+                    description: serverError,
+                })
+                return
             }}
         >
             <FormField

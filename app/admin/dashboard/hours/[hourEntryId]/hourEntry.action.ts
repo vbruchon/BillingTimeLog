@@ -37,17 +37,13 @@ export const hourEntryActionEdit = authentifiedAction(
         return { message: 'Customer update successfully !', updatedHourEntry }
     }
 )
-/*
-const HourEntryActionCreateProps = z.object({
-    data: CustomerFormSchema,
-})
 
 export const hourEntryActionCreate = authentifiedAction(
     HourEntryFormSchema,
     async (props, { userId }) => {
-        const newCustomer = await prisma.customer.create({
-            data: {})
-        return { message: 'Customer created successfully!', newCustomer }
+        const newHourEntry = await prisma.hourEntry.create({
+            data: { ...props },
+        })
+        return { message: 'Customer created successfully!', newHourEntry }
     }
 )
- */
