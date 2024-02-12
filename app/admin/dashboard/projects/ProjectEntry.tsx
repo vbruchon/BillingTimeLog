@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { DeleteButtonWithConfirmation } from '@/components/layout/dashboard/button/DeleteButtonWithConfirmation'
 import { CustomerEntryProps } from '../customers/CustomerEntry'
 import { CustomerFormProps } from '../customers/[customerId]/CustomerForm'
+import { deleteProject } from './[projectId]/project.action'
 
 type ProjectEntryProps = {
     project: {
@@ -26,7 +27,11 @@ export const ProjectEntry = ({ project, index }: ProjectEntryProps) => {
                 <Link href={`/admin/dashboard/projects/${project.id}`}>
                     <Pencil size={22} />
                 </Link>
-                <DeleteButtonWithConfirmation id={project.id} />
+                <DeleteButtonWithConfirmation
+                    id={project.id}
+                    element="project"
+                    deleteFunction={deleteProject}
+                />
             </TableCell>
         </TableRow>
     )

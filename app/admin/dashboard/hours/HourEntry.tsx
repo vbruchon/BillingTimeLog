@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { DeleteButtonWithConfirmation } from '@/components/layout/dashboard/button/DeleteButtonWithConfirmation'
 import { cn } from '@/lib/utils'
 import { Badge } from '@/components/ui/badge'
+import { deleteHourEntry } from './[hourId]/hourEntry.action'
 
 type HourEntryProps = {
     hour: {
@@ -51,7 +52,11 @@ export const HourEntry = ({ hour, index }: HourEntryProps) => {
                 <Link href={`/admin/dashboard/hours/${hour.id}`}>
                     <Pencil size={22} />
                 </Link>
-                <DeleteButtonWithConfirmation id={hour.id} />
+                <DeleteButtonWithConfirmation
+                    id={hour.id}
+                    element="hour entry"
+                    deleteFunction={deleteHourEntry}
+                />
             </TableCell>
         </TableRow>
     )

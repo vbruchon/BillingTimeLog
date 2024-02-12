@@ -16,8 +16,14 @@ import { deleteCustomer } from '../../../../../app/admin/dashboard/customers/cus
 
 type DeleteButtonProps = {
     id: string
+    deleteFunction: (id: string) => void
+    element: string
 }
-export const DeleteButtonWithConfirmation = ({ id }: DeleteButtonProps) => {
+export const DeleteButtonWithConfirmation = ({
+    id,
+    deleteFunction,
+    element,
+}: DeleteButtonProps) => {
     return (
         <AlertDialog>
             <AlertDialogTrigger asChild>
@@ -32,7 +38,7 @@ export const DeleteButtonWithConfirmation = ({ id }: DeleteButtonProps) => {
                     </AlertDialogTitle>
                     <AlertDialogDescription>
                         This action cannot be undone. This will permanently
-                        delete the customer and remove your data from our
+                        delete the {element} and remove your data from our
                         servers.
                     </AlertDialogDescription>
                 </AlertDialogHeader>
@@ -42,7 +48,7 @@ export const DeleteButtonWithConfirmation = ({ id }: DeleteButtonProps) => {
                         <form>
                             <Button
                                 variant={'destructive'}
-                                formAction={() => deleteCustomer(id)}
+                                formAction={() => deleteFunction(id)}
                             >
                                 <Trash2 size={22} />
                             </Button>

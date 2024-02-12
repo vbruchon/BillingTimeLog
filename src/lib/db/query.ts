@@ -81,3 +81,26 @@ export const getHours = async () => {
 
     return hours
 }
+
+export const getHourEntryById = async (hourId: string) => {
+    const hourEntry = await prisma.hourEntry.findUniqueOrThrow({
+        where: {
+            id: hourId,
+        },
+        select: {
+            id: true,
+            date: true,
+            reason: true,
+            duration: true,
+            rate: true,
+            invoiceStatus: true,
+            createdAt: true,
+            project: {
+                select: {
+                    name: true,
+                },
+            },
+        },
+    })
+    return hourEntry
+}

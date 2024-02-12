@@ -2,6 +2,7 @@ import { Pencil } from 'lucide-react'
 import { TableCell, TableRow } from '@/components/ui/table'
 import Link from 'next/link'
 import { DeleteButtonWithConfirmation } from '@/components/layout/dashboard/button/DeleteButtonWithConfirmation'
+import { deleteProject } from '../projects/[projectId]/project.action'
 
 export type CustomerEntryProps = {
     client: {
@@ -22,7 +23,11 @@ export const CustomerEntry = ({ client, index }: CustomerEntryProps) => {
                 <Link href={`/admin/dashboard/customers/${client.id}`}>
                     <Pencil size={22} />
                 </Link>
-                <DeleteButtonWithConfirmation id={client.id} />
+                <DeleteButtonWithConfirmation
+                    id={client.id}
+                    element="customer"
+                    deleteFunction={deleteProject}
+                />
             </TableCell>
         </TableRow>
     )

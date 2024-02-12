@@ -6,27 +6,27 @@ import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
 import { ProjectFormSchema } from './project.schema'
 
-export const deleteCustomer = async (customerId: string) => {
+export const deleteProject = async (projectId: string) => {
     try {
-        await prisma.customer.delete({
+        await prisma.project.delete({
             where: {
-                id: customerId,
+                id: projectId,
             },
         })
-        revalidatePath('/admin/dashboard/customers')
-        return { message: 'The customer has been succesfully deleted' }
+        revalidatePath('/admin/dashboard/projects')
+        return { message: 'The project has been succesfully deleted' }
     } catch (error) {
         return { message: error }
     }
 }
 
-const CustomerActionEditProps = z.object({
+const ProjectActionEditProps = z.object({
     projectId: z.string(),
     data: ProjectFormSchema,
 })
 
 export const projectActionEdit = authentifiedAction(
-    CustomerActionEditProps,
+    ProjectActionEditProps,
     async (props, { userId }) => {
         const updatedProject = await prisma.project.update({
             where: {
