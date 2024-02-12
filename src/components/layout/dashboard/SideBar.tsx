@@ -1,6 +1,6 @@
 'use client'
 import { cn } from '@/lib/utils'
-import { FolderKanban, Home, UserCog, Users } from 'lucide-react'
+import { FolderKanban, Home, Timer, UserCog, Users } from 'lucide-react'
 
 export const SideBar = () => {
     const links = [
@@ -14,6 +14,11 @@ export const SideBar = () => {
             name: 'Projects',
             icone: <FolderKanban />,
             href: '/admin/dashboard/projects',
+        },
+        {
+            name: 'Hours',
+            icone: <Timer />,
+            href: '/admin/dashboard/hours',
         },
         {
             name: 'My Account',

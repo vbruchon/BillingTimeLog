@@ -60,3 +60,24 @@ export const getProjectsById = async (projectId: string) => {
     })
     return project
 }
+
+export const getHours = async () => {
+    const hours = prisma.hourEntry.findMany({
+        select: {
+            id: true,
+            date: true,
+            reason: true,
+            duration: true,
+            rate: true,
+            invoiceStatus: true,
+            createdAt: true,
+            project: {
+                select: {
+                    name: true,
+                },
+            },
+        },
+    })
+
+    return hours
+}
