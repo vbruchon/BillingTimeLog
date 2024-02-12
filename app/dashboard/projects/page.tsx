@@ -8,7 +8,6 @@ import {
     TableRow,
 } from '@/components/ui/table'
 import { ProjectEntry } from './ProjectEntry'
-import { prisma } from '@/lib/db/prisma'
 import { getProjects } from '@/lib/db/query'
 
 export default async function ProjectsPage() {

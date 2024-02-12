@@ -4,7 +4,7 @@ import { prisma } from '@/lib/db/prisma'
 import { authentifiedAction } from '@/lib/db/safe-action'
 import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
-import { CustomerFormSchema } from './customers.schema'
+import { ProjectFormSchema } from './project.schema'
 
 export const deleteCustomer = async (customerId: string) => {
     try {
@@ -19,21 +19,21 @@ export const deleteCustomer = async (customerId: string) => {
         return { message: error }
     }
 }
+
 const CustomerActionEditProps = z.object({
-    customerId: z.string(),
-    data: CustomerFormSchema,
+    projectId: z.string(),
+    data: ProjectFormSchema,
 })
 
-export const customerActionEdit = authentifiedAction(
+export const projectActionEdit = authentifiedAction(
     CustomerActionEditProps,
     async (props, { userId }) => {
-        const updatedCustomer = await prisma.customer.update({
+        const updatedProject = await prisma.project.update({
             where: {
-                id: props.customerId,
-                userId: userId,
+                id: props.projectId,
             },
             data: props.data,
         })
-        return { message: 'Customer update successfully !', updatedCustomer }
+        return { message: 'Project update successfully !', updatedProject }
     }
 )
