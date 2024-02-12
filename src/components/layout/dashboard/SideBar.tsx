@@ -4,14 +4,22 @@ import { FolderKanban, Home, UserCog, Users } from 'lucide-react'
 
 export const SideBar = () => {
     const links = [
-        { name: 'Home', icone: <Home />, href: '/dashboard' },
-        { name: 'Customers', icone: <Users />, href: '/dashboard/customers' },
+        { name: 'Home', icone: <Home />, href: '/admin/dashboard' },
+        {
+            name: 'Customers',
+            icone: <Users />,
+            href: '/admin/dashboard/customers',
+        },
         {
             name: 'Projects',
             icone: <FolderKanban />,
-            href: '/dashboard/projects',
+            href: '/admin/dashboard/projects',
         },
-        { name: 'My Account', icone: <UserCog />, href: '/dashboard/account' },
+        {
+            name: 'My Account',
+            icone: <UserCog />,
+            href: '/admin/dashboard/account',
+        },
     ]
     const linkActiveStyle = 'bg-primary-foreground ml-4 border-2 border-primary'
     const linkStyle = 'hover:bg-primary-foreground'

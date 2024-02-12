@@ -68,7 +68,7 @@ export const LoggedInButton = (props: LoggedInButtonProps) => {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="flex flex-col items-center p-2">
                     <DropdownMenuItem className="p-4" asChild>
-                        <Link href="/dashboard">
+                        <Link href="/admin/dashboard">
                             <User2 className="mr-2" size={16} />
                             My Dashboard
                         </Link>

@@ -4,7 +4,7 @@ import { prisma } from '@/lib/db/prisma'
 import { authentifiedAction } from '@/lib/db/safe-action'
 import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
-import { ProjectFormSchema } from './project.schema'
+import { CustomerFormSchema } from './customers.schema'
 
 export const deleteCustomer = async (customerId: string) => {
     try {
@@ -13,27 +13,27 @@ export const deleteCustomer = async (customerId: string) => {
                 id: customerId,
             },
         })
-        revalidatePath('/dashboard/customers')
+        revalidatePath('/admin//dashboard/customers')
         return { message: 'The customer has been succesfully deleted' }
     } catch (error) {
         return { message: error }
     }
 }
-
 const CustomerActionEditProps = z.object({
-    projectId: z.string(),
-    data: ProjectFormSchema,
+    customerId: z.string(),
+    data: CustomerFormSchema,
 })
 
-export const projectActionEdit = authentifiedAction(
+export const customerActionEdit = authentifiedAction(
     CustomerActionEditProps,
     async (props, { userId }) => {
-        const updatedProject = await prisma.project.update({
+        const updatedCustomer = await prisma.customer.update({
             where: {
-                id: props.projectId,
+                id: props.customerId,
+                userId: userId,
             },
             data: props.data,
         })
-        return { message: 'Project update successfully !', updatedProject }
+        return { message: 'Customer update successfully !', updatedCustomer }
     }
 )

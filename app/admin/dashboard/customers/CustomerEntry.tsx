@@ -19,7 +19,7 @@ export const CustomerEntry = ({ client, index }: CustomerEntryProps) => {
             <TableCell className="text-lg">{client.name}</TableCell>
             <TableCell>{client.email}</TableCell>
             <TableCell className="flex items-center justify-end gap-x-4">
-                <Link href={`/dashboard/customers/${client.id}`}>
+                <Link href={`/admin/dashboard/customers/${client.id}`}>
                     <Pencil size={22} />
                 </Link>
                 <DeleteButtonWithConfirmation id={client.id} />

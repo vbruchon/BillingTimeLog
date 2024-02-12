@@ -23,7 +23,7 @@ export const ProjectEntry = ({ project, index }: ProjectEntryProps) => {
             <TableCell className="text-lg">{project.name}</TableCell>
             <TableCell>{project.customer.name}</TableCell>
             <TableCell className="flex items-center justify-end gap-x-4">
-                <Link href={`/dashboard/projects/${project.id}`}>
+                <Link href={`/admin/dashboard/projects/${project.id}`}>
                     <Pencil size={22} />
                 </Link>
                 <DeleteButtonWithConfirmation id={project.id} />
