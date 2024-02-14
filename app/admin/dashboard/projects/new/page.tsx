@@ -1,8 +1,8 @@
 import { Typography } from '@/components/ui/Typography'
 import { Card, CardContent } from '@/components/ui/card'
 import { prisma } from '@/lib/db/prisma'
-import { getCustomers, getProjectsById } from '@/lib/db/query'
 import { ProjectForm } from '../[projectId]/ProjectForm'
+import { getCustomers } from '../../customers/customers.query'
 
 export default async function CreateProjectPage() {
     const customers = await getCustomers()

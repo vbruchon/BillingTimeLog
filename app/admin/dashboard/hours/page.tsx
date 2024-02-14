@@ -7,9 +7,9 @@ import {
     TableHeader,
     TableRow,
 } from '@/components/ui/table'
-import { getHours } from '@/lib/db/query'
 import Link from 'next/link'
 import { HourEntry } from './HourEntry'
+import { getHours } from './hourEntry.query'
 
 export default async function HoursPage() {
     const hours = await getHours()

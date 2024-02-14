@@ -2,7 +2,8 @@ import { Typography } from '@/components/ui/Typography'
 import { Card, CardContent } from '@/components/ui/card'
 import { prisma } from '@/lib/db/prisma'
 import { ProjectForm } from './ProjectForm'
-import { getCustomers, getProjectsById } from '@/lib/db/query'
+import { getProjectsById } from '../projects.query'
+import { getCustomers } from '../../customers/customers.query'
 
 export default async function ProjectPage({
     params,

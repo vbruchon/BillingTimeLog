@@ -1,7 +1,8 @@
 import { Typography } from '@/components/ui/Typography'
 import { Card, CardContent } from '@/components/ui/card'
-import { getHourEntryById, getProjects, getProjectsById } from '@/lib/db/query'
 import { HourEntryForm } from './HourEntryForm'
+import { getHourEntryById } from '../hourEntry.query'
+import { getProjects } from '../../projects/projects.query'
 
 export default async function HourEntryPage({
     params,

@@ -8,8 +8,8 @@ import {
     TableRow,
 } from '@/components/ui/table'
 import { CustomerEntry } from './CustomerEntry'
-import { getCustomers } from '@/lib/db/query'
 import Link from 'next/link'
+import { getCustomers } from './customers.query'
 
 export default async function CustomersPage() {
     const customers = await getCustomers()

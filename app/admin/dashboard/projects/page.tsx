@@ -8,12 +8,11 @@ import {
     TableRow,
 } from '@/components/ui/table'
 import { ProjectEntry } from './ProjectEntry'
-import { getProjects } from '@/lib/db/query'
 import Link from 'next/link'
+import { getProjects } from './projects.query'
 
 export default async function ProjectsPage() {
     const projects = await getProjects()
-    console.log({ projects })
 
     return (
         <div className="container mx-auto p-8">
