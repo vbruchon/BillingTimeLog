@@ -5,7 +5,7 @@ import { DeleteButtonWithConfirmation } from '@/components/layout/dashboard/butt
 import { deleteProject } from '../projects/[projectId]/project.action'
 
 export type CustomerEntryProps = {
-    client: {
+    item: {
         id: string
         name: string
         email: string
@@ -13,18 +13,18 @@ export type CustomerEntryProps = {
     index: number
 }
 
-export const CustomerEntry = ({ client, index }: CustomerEntryProps) => {
+export const CustomerEntry = ({ item, index }: CustomerEntryProps) => {
     return (
-        <TableRow key={client.name}>
+        <TableRow key={item.name}>
             <TableCell className="font-medium">{index + 1}</TableCell>
-            <TableCell className="text-lg">{client.name}</TableCell>
-            <TableCell>{client.email}</TableCell>
+            <TableCell className="text-lg">{item.name}</TableCell>
+            <TableCell>{item.email}</TableCell>
             <TableCell className="flex items-center justify-end gap-x-4">
-                <Link href={`/admin/dashboard/customers/${client.id}`}>
+                <Link href={`/admin/dashboard/customers/${item.id}`}>
                     <Pencil size={22} />
                 </Link>
                 <DeleteButtonWithConfirmation
-                    id={client.id}
+                    id={item.id}
                     element="customer"
                     deleteFunction={deleteProject}
                 />

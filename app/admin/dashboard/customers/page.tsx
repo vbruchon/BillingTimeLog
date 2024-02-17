@@ -1,53 +1,31 @@
-import { Button } from '@/components/ui/button'
-import {
-    Table,
-    TableBody,
-    TableCaption,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from '@/components/ui/table'
+import { TableHead, TableRow } from '@/components/ui/table'
 import { CustomerEntry } from './CustomerEntry'
-import Link from 'next/link'
 import { getCustomers } from './customers.query'
+import ListPage from '@/components/layout/dashboard/ListPage'
 
-export default async function CustomersPage() {
+const CustomersPage = async () => {
     const customers = await getCustomers()
 
     return (
-        <div className="container mx-auto p-8">
-            <div className="mb-8 flex items-center justify-between rounded-lg bg-gray-800 p-4">
-                <h1 className="text-2xl font-semibold text-white">
-                    CustomersPage
-                </h1>
-                <Link
-                    href={'/admin/dashboard/customers/new'}
-                    className="bg-blue-500 text-white hover:bg-blue-700"
-                >
-                    Add Client
-                </Link>
-            </div>
-
-            <Table>
-                <TableCaption>A list of your recent invoices.</TableCaption>
-                <TableHeader>
-                    <TableRow>
-                        <TableHead>ID</TableHead>
-                        <TableHead>Company Name</TableHead>
-                        <TableHead>Email</TableHead>
-                        <TableHead className="text-right">Action</TableHead>
-                    </TableRow>
-                </TableHeader>
-                <TableBody>
-                    {customers.map((client, index) => (
-                        <CustomerEntry
-                            key={client.id}
-                            client={client}
-                            index={index}
-                        />
-                    ))}
-                </TableBody>
-            </Table>
-        </div>
+        <ListPage
+            title="Customers Page"
+            data={customers}
+            tableHeaderComponent={CustomerTableHeader}
+            entryComponent={CustomerEntry}
+            newLink="/admin/dashboard/customers/new"
+        />
     )
 }
+
+const CustomerTableHeader = () => {
+    return (
+        <TableRow className="text-lg">
+            <TableHead>ID</TableHead>
+            <TableHead>Company Name</TableHead>
+            <TableHead>Email</TableHead>
+            <TableHead className="text-right">Action</TableHead>
+        </TableRow>
+    )
+}
+
+export default CustomersPage

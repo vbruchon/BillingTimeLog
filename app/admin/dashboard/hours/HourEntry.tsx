@@ -7,7 +7,7 @@ import { Badge } from '@/components/ui/badge'
 import { deleteHourEntry } from './[hourEntryId]/hourEntry.action'
 
 type HourEntryProps = {
-    hour: {
+    item: {
         id: string
         date: Date
         reason: string
@@ -20,9 +20,9 @@ type HourEntryProps = {
     index: number
 }
 
-export const HourEntry = ({ hour, index }: HourEntryProps) => {
+export const HourEntry = ({ item, index }: HourEntryProps) => {
     let statusStyle = ''
-    switch (hour.invoiceStatus) {
+    switch (item.invoiceStatus) {
         case 'Overdue':
             statusStyle = 'border-red-600 text-red-600'
             break
@@ -33,27 +33,30 @@ export const HourEntry = ({ hour, index }: HourEntryProps) => {
             statusStyle = 'border-green-600 text-green-600'
             break
     }
+    const date = `${item.date.getDate().toString().padStart(2, '0')}/
+    ${(item.date.getMonth() + 1).toString().padStart(2, '0')}/
+    ${item.date.getFullYear()}`
 
     return (
         <TableRow>
             <TableCell className="font-medium">{index + 1}</TableCell>
-            <TableCell className="text-lg">{hour.project.name}</TableCell>
-            <TableCell>{hour.date.toISOString()}</TableCell>
-            <TableCell>{hour.rate}</TableCell>
+            <TableCell className="text-lg">{item.project.name}</TableCell>
+            <TableCell>{date}</TableCell>
+            <TableCell>{item.rate}</TableCell>
             <TableCell className="text-center">
                 <Badge
                     variant={'outline'}
                     className={cn(' text-sm', statusStyle)}
                 >
-                    {hour.invoiceStatus}
+                    {item.invoiceStatus}
                 </Badge>
             </TableCell>
             <TableCell className="flex items-center justify-end gap-x-4">
-                <Link href={`/admin/dashboard/hours/${hour.id}`}>
+                <Link href={`/admin/dashboard/hours/${item.id}`}>
                     <Pencil size={22} />
                 </Link>
                 <DeleteButtonWithConfirmation
-                    id={hour.id}
+                    id={item.id}
                     element="hour entry"
                     deleteFunction={deleteHourEntry}
                 />

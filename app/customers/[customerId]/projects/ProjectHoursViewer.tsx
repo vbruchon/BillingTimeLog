@@ -41,12 +41,10 @@ export const ProjectHoursViewer = ({
                 />
                 <Card className="bg-primary-foreground">
                     <CardContent>
-                        <CardTitle>
-                            <HourTable
-                                selectedProjectHours={selectedProjectHours}
-                                projectName={projectName}
-                            />
-                        </CardTitle>
+                        <HourTable
+                            selectedProjectHours={selectedProjectHours}
+                            projectName={projectName}
+                        />
                     </CardContent>
                 </Card>
             </div>

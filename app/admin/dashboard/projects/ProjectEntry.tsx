@@ -7,7 +7,7 @@ import { CustomerFormProps } from '../customers/[customerId]/CustomerForm'
 import { deleteProject } from './[projectId]/project.action'
 
 type ProjectEntryProps = {
-    project: {
+    item: {
         id: string
         name: string
         customer: {
@@ -17,18 +17,18 @@ type ProjectEntryProps = {
     index: number
 }
 
-export const ProjectEntry = ({ project, index }: ProjectEntryProps) => {
+export const ProjectEntry = ({ item, index }: ProjectEntryProps) => {
     return (
         <TableRow>
             <TableCell className="font-medium">{index + 1}</TableCell>
-            <TableCell className="text-lg">{project.name}</TableCell>
-            <TableCell>{project.customer.name}</TableCell>
+            <TableCell className="text-lg">{item.name}</TableCell>
+            <TableCell>{item.customer.name}</TableCell>
             <TableCell className="flex items-center justify-end gap-x-4">
-                <Link href={`/admin/dashboard/projects/${project.id}`}>
+                <Link href={`/admin/dashboard/projects/${item.id}`}>
                     <Pencil size={22} />
                 </Link>
                 <DeleteButtonWithConfirmation
-                    id={project.id}
+                    id={item.id}
                     element="project"
                     deleteFunction={deleteProject}
                 />
