@@ -5,12 +5,36 @@ import { signIn } from 'next-auth/react'
 import { LogIn } from 'lucide-react'
 import { Loader } from '@/components/ui/loader'
 import { useMutation } from '@tanstack/react-query'
+import { useEffect, useState } from 'react'
 
 export const LoginButton = () => {
     const mutation = useMutation({
         mutationFn: async () => signIn('github'),
     })
+    const [isCustomersPage, setIsCustomersPage] = useState(false)
 
+    useEffect(() => {
+        if (window.location.pathname.startsWith('/customers')) {
+            setIsCustomersPage(true)
+        }
+
+        const handleChange = () => {
+            if (window.location.pathname.startsWith('/customers')) {
+                setIsCustomersPage(true)
+            } else {
+                setIsCustomersPage(false)
+            }
+            console.log(window.location.pathname)
+        }
+
+        window.addEventListener('popstate', handleChange)
+
+        return () => window.removeEventListener('popstate', handleChange)
+    }, [])
+
+    if (isCustomersPage) {
+        return null
+    }
     return (
         <Button
             variant="outline"
@@ -23,7 +47,7 @@ export const LoginButton = () => {
             {mutation.isPending ? (
                 <Loader className="mr-2" size={16} />
             ) : (
-                <LogIn size={50} className="mr-2 h-4 w-4 " />
+                <LogIn size={50} className="mr-2 size-4 " />
             )}
             Login
         </Button>

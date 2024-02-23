@@ -1,12 +1,9 @@
-'use client '
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { useState } from 'react'
 import { CustomerLogInForm } from './CustomerLogInForm'
 import AlertErrorLogin from './AlertErrorLogin'
 
 const CustomersLoginPage = () => {
-    const [error, setError] = useState('')
-
     return (
         <div>
             <Card className="mx-auto">
@@ -16,10 +13,9 @@ const CustomersLoginPage = () => {
                     </CardTitle>
                 </CardHeader>
                 <CardContent>
-                    <CustomerLogInForm setError={setError} />
+                    <CustomerLogInForm />
                 </CardContent>
             </Card>
-            {error && <AlertErrorLogin error={error} />}
         </div>
     )
 }
