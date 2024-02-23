@@ -4,7 +4,7 @@ import { Toaster } from '@/components/ui/toaster'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { SessionProvider } from 'next-auth/react'
 import { ThemeProvider } from 'next-themes'
-import { PropsWithChildren } from 'react'
+import { PropsWithChildren, useState } from 'react'
 
 const queryClient = new QueryClient()
 

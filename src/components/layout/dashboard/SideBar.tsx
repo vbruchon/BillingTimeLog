@@ -1,31 +1,16 @@
 'use client'
 import { cn } from '@/lib/utils'
-import { FolderKanban, Home, Timer, UserCog, Users } from 'lucide-react'
 
-export const SideBar = () => {
-    const links = [
-        { name: 'Home', icone: <Home />, href: '/admin/dashboard' },
-        {
-            name: 'Customers',
-            icone: <Users />,
-            href: '/admin/dashboard/customers',
-        },
-        {
-            name: 'Projects',
-            icone: <FolderKanban />,
-            href: '/admin/dashboard/projects',
-        },
-        {
-            name: 'Hours',
-            icone: <Timer />,
-            href: '/admin/dashboard/hours',
-        },
-        {
-            name: 'My Account',
-            icone: <UserCog />,
-            href: '/admin/dashboard/account',
-        },
-    ]
+export type LinkType = {
+    name: string
+    icon: JSX.Element
+    href: string
+}
+
+type SideBarProps = {
+    links: LinkType[]
+}
+export const SideBar = ({ links }: SideBarProps) => {
     const linkActiveStyle = 'bg-primary-foreground ml-4 border-2 border-primary'
     const linkStyle = 'hover:bg-primary-foreground'
 
@@ -37,7 +22,7 @@ export const SideBar = () => {
                     key={link.name}
                     className={cn('flex gap-x-4 rounded-lg p-4 ')}
                 >
-                    {link.icone}
+                    {link.icon}
                     {link.name}
                 </a>
             ))}
