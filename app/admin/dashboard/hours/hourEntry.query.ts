@@ -1,4 +1,5 @@
 import { prisma } from '@/lib/db/prisma'
+import { getCustomers } from '../customers/customers.query'
 
 export const getHours = async () => {
     const hours = prisma.hourEntry.findMany({
@@ -137,4 +138,271 @@ export const getHoursByCustomerId = async (customerId?: string) => {
         },
     })
     return hourEntry
+}
+export const getCountOfHoursEntry = async () => {
+    const customers = await getCustomers()
+
+    const HoursEntries = await Promise.all(
+        customers.map(async (customer) => {
+            const projects = await prisma.project.findMany({
+                where: {
+                    customerId: customer.id,
+                },
+                include: {
+                    hours: true,
+                },
+            })
+            return projects
+        })
+    )
+
+    const totalDuration = HoursEntries.reduce((total, projects) => {
+        const projectTotalDuration = projects.reduce(
+            (projectTotal, project) => {
+                const projectHoursDuration = project.hours.reduce(
+                    (hoursTotal, hour) => {
+                        return hoursTotal + hour.duration
+                    },
+                    0
+                )
+
+                return projectTotal + projectHoursDuration
+            },
+            0
+        )
+
+        return total + projectTotalDuration
+    }, 0)
+
+    return totalDuration
+}
+
+export const getCountOfHoursByInvoiceStatus = async (status: string) => {
+    const customers = await getCustomers()
+
+    const hoursEntries = await Promise.all(
+        customers.map(async (customer) => {
+            const projects = await prisma.project.findMany({
+                where: {
+                    customerId: customer.id,
+                },
+                include: {
+                    hours: {
+                        where: {
+                            invoiceStatus: status,
+                        },
+                    },
+                },
+            })
+            return projects
+        })
+    )
+
+    const totalPaid = hoursEntries.reduce((total, projects) => {
+        const projectTotalDuration = projects.reduce(
+            (projectTotal, project) => {
+                const projectHoursDuration = project.hours.reduce(
+                    (hoursTotal, hour) => {
+                        return hoursTotal + hour.duration
+                    },
+                    0
+                )
+
+                return projectTotal + projectHoursDuration
+            },
+            0
+        )
+
+        return total + projectTotalDuration
+    }, 0)
+
+    return totalPaid
+}
+
+export const getAverageDurationByInvoiceStatus = async (status: string) => {
+    const customers = await getCustomers()
+
+    const { totalHours, totalProjects } = await customers.reduce(
+        async (accumulator, customer) => {
+            const { totalHours, totalProjects } = await accumulator
+
+            const projects = await prisma.project.findMany({
+                where: {
+                    customerId: customer.id,
+                },
+                include: {
+                    hours: {
+                        where: {
+                            NOT: {
+                                invoiceStatus: status,
+                            },
+                        },
+                    },
+                },
+            })
+
+            const customerTotalHours = projects.reduce(
+                (projectTotal, project) => {
+                    const projectHoursDuration = project.hours.reduce(
+                        (hoursTotal, hour) => hoursTotal + hour.duration,
+                        0
+                    )
+
+                    return projectTotal + projectHoursDuration
+                },
+                0
+            )
+
+            return {
+                totalHours: totalHours + customerTotalHours,
+                totalProjects: totalProjects + projects.length,
+            }
+        },
+        Promise.resolve({ totalHours: 0, totalProjects: 0 })
+    )
+
+    const averageDuration = totalProjects > 0 ? totalHours / totalProjects : 0
+
+    return averageDuration
+}
+
+export const getTotalRevenue = async () => {
+    const customers = await getCustomers()
+
+    const totalRevenue = await Promise.all(
+        customers.map(async (customer) => {
+            const projects = await prisma.project.findMany({
+                where: {
+                    customerId: customer.id,
+                },
+                include: {
+                    hours: true,
+                },
+            })
+
+            const customerRevenue = projects.reduce((projectTotal, project) => {
+                const projectHoursRevenue = project.hours.reduce(
+                    (hoursTotal, hour) => {
+                        return hoursTotal + hour.duration * hour.rate
+                    },
+                    0
+                )
+
+                return projectTotal + projectHoursRevenue
+            }, 0)
+
+            return customerRevenue
+        })
+    )
+
+    const totalRevenueSum = totalRevenue.reduce(
+        (total, customerRevenue) => total + customerRevenue,
+        0
+    )
+
+    return totalRevenueSum.toFixed(2)
+}
+
+export const getTotalRevenueForCurrentYear = async () => {
+    const customers = await getCustomers()
+    const currentYear = new Date().getFullYear()
+
+    const totalRevenueForCurrentYear = await Promise.all(
+        customers.map(async (customer) => {
+            const projects = await prisma.project.findMany({
+                where: {
+                    customerId: customer.id,
+                },
+                include: {
+                    hours: {
+                        where: {
+                            createdAt: {
+                                gte: new Date(currentYear, 0, 1),
+                                lte: new Date(currentYear, 11, 31, 23, 59, 59),
+                            },
+                        },
+                    },
+                },
+            })
+
+            const customerRevenueForCurrentYear = projects.reduce(
+                (projectTotal, project) => {
+                    const projectHoursRevenue = project.hours.reduce(
+                        (hoursTotal, hour) => {
+                            return hoursTotal + hour.duration * hour.rate
+                        },
+                        0
+                    )
+
+                    return projectTotal + projectHoursRevenue
+                },
+                0
+            )
+
+            return customerRevenueForCurrentYear
+        })
+    )
+
+    const totalRevenueSumForCurrentYear = totalRevenueForCurrentYear.reduce(
+        (total, customerRevenue) => total + customerRevenue,
+        0
+    )
+
+    return totalRevenueSumForCurrentYear.toFixed(2)
+}
+
+export const getTotalRevenueForCurrentMonth = async () => {
+    const customers = await getCustomers()
+    const currentYear = new Date().getFullYear()
+    const currentMonth = new Date().getMonth()
+
+    const totalRevenueForCurrentMonth = await Promise.all(
+        customers.map(async (customer) => {
+            const projects = await prisma.project.findMany({
+                where: {
+                    customerId: customer.id,
+                },
+                include: {
+                    hours: {
+                        where: {
+                            createdAt: {
+                                gte: new Date(currentYear, currentMonth, 1),
+                                lte: new Date(
+                                    currentYear,
+                                    currentMonth + 1,
+                                    0,
+                                    23,
+                                    59,
+                                    59
+                                ),
+                            },
+                        },
+                    },
+                },
+            })
+
+            const customerRevenueForCurrentMonth = projects.reduce(
+                (projectTotal, project) => {
+                    const projectHoursRevenue = project.hours.reduce(
+                        (hoursTotal, hour) => {
+                            return hoursTotal + hour.duration * hour.rate
+                        },
+                        0
+                    )
+
+                    return projectTotal + projectHoursRevenue
+                },
+                0
+            )
+
+            return customerRevenueForCurrentMonth
+        })
+    )
+
+    const totalRevenueSumForCurrentMonth = totalRevenueForCurrentMonth.reduce(
+        (total, customerRevenue) => total + customerRevenue,
+        0
+    )
+
+    return totalRevenueSumForCurrentMonth.toFixed(2)
 }
