@@ -41,15 +41,23 @@ model Session {
 
 model User {
   id            String     @id @default(cuid())
-  name          String?
-  email         String?    @unique
+  name          String
+  companyName   String?
+  address       String?
+  country       String?
+  tel           String?    @unique
+  email         String     @unique
   emailVerified DateTime?
   image         String?
+  SIRET         String?    @unique
+  VATNumber     String?    @unique
+  activityCode  String?
   createdAt     DateTime   @default(now())
   updatedAt     DateTime   @updatedAt
   accounts      Account[]
   sessions      Session[]
   customers     Customer[]
+  Invoice       Invoice[]
 }
 
 model VerificationToken {
@@ -62,15 +70,49 @@ model VerificationToken {
 }
 
 model Customer {
-  id            String    @id @default(cuid())
-  name          String
-  email         String    @unique
-  emailVerified DateTime?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime? @updatedAt
+  id               String    @id @default(cuid())
+  logo             String
+  companyName      String
+  address          String
+  country          String
+  contactName      String
+  contactFirstName String
+  tel              String    @unique
+  email            String    @unique
+  emailVerifiedAt  DateTime?
+  SIRET            String    @unique
+  VATNumber        String?   @unique
+  webSite          String?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime? @updatedAt
+  userId           String
+  user             User      @relation(fields: [userId], references: [id])
+  projects         Project[]
+  invoices         Invoice[]
+}
+
+model Invoice {
+  id            String        @id @default(cuid())
+  invoiceNumber String
+  invoiceStatus InvoiceStatus @default(pending)
+  paymentMethod String
+  totalAmount   Float
+  clientId      String
+  projectId     String
   userId        String
-  user          User      @relation(fields: [userId], references: [id])
-  Project       Project[]
+  invoiceDate   DateTime?
+  dueDate       DateTime?
+  hours         HourEntry[]
+  client        Customer      @relation(fields: [clientId], references: [id])
+  user          User          @relation(fields: [userId], references: [id])
+  project       Project       @relation(fields: [projectId], references: [id])
+  createdAt     DateTime      @default(now())
+}
+
+enum InvoiceStatus {
+  pending
+  paid
+  overdue
 }
 
 model Project {
@@ -82,6 +124,7 @@ model Project {
   updatedAt  DateTime      @updatedAt
   hours      HourEntry[]
   status     ProjectStatus @default(in_progress)
+  Invoice    Invoice[]
 }
 
 enum ProjectStatus {
@@ -90,14 +133,21 @@ enum ProjectStatus {
 }
 
 model HourEntry {
-  id            String   @id @default(cuid())
-  projectId     String
-  project       Project  @relation(fields: [projectId], references: [id])
-  date          DateTime
-  reason        String
-  duration      Int
-  rate          Float
-  invoiceStatus String
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  id        String          @id @default(cuid())
+  projectId String
+  project   Project         @relation(fields: [projectId], references: [id])
+  date      DateTime
+  reason    String
+  duration  Int
+  rate      Float
+  status    HourEntryStatus @default(unbilled)
+  createdAt DateTime        @default(now())
+  updatedAt DateTime?       @updatedAt
+  invoiceId String?
+  invoice   Invoice?        @relation(fields: [invoiceId], references: [id])
+}
+
+enum HourEntryStatus {
+  unbilled
+  billed
 }

@@ -13,7 +13,7 @@ type HourEntryProps = {
         reason: string
         duration: number
         rate: number
-        invoiceStatus: string
+        status: string
         createdAt: Date
         project: { name: string }
     }
@@ -22,14 +22,11 @@ type HourEntryProps = {
 
 export const HourEntry = ({ item, index }: HourEntryProps) => {
     let statusStyle = ''
-    switch (item.invoiceStatus) {
-        case 'Overdue':
-            statusStyle = 'border-red-600 text-red-600'
+    switch (item.status) {
+        case 'unbilled':
+            statusStyle = 'border-gray-600 text-gray-600'
             break
-        case 'Pending':
-            statusStyle = 'border-orange-600 text-orange-600'
-            break
-        default:
+        case 'billed':
             statusStyle = 'border-green-600 text-green-600'
             break
     }
@@ -48,7 +45,7 @@ export const HourEntry = ({ item, index }: HourEntryProps) => {
                     variant={'outline'}
                     className={cn(' text-sm', statusStyle)}
                 >
-                    {item.invoiceStatus}
+                    {item.status}
                 </Badge>
             </TableCell>
             <TableCell className="flex items-center justify-end gap-x-4">

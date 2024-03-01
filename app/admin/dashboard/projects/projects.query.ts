@@ -9,7 +9,7 @@ export const getProjects = async () => {
             name: true,
             customer: {
                 select: {
-                    name: true,
+                    companyName: true,
                 },
             },
         },

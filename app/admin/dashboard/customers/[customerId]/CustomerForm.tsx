@@ -64,7 +64,7 @@ export const CustomerForm = ({ defaultValue }: CustomerFormProps) => {
         >
             <FormField
                 control={form.control}
-                name="name"
+                name="companyName"
                 render={({ field }) => (
                     <FormItem>
                         <FormLabel className="text-xl">Company name</FormLabel>

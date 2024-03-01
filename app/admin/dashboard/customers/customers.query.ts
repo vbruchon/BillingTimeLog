@@ -9,7 +9,7 @@ export const getCustomers = async () => {
         },
         select: {
             id: true,
-            name: true,
+            companyName: true,
             email: true,
         },
     })
@@ -18,14 +18,23 @@ export const getCustomers = async () => {
 }
 
 export const getCustomerById = async (customerId: string) => {
-    const customer = await prisma.customer.findUnique({
+    const customer = await prisma.customer.findUniqueOrThrow({
         where: {
             id: customerId,
         },
         select: {
             id: true,
-            name: true,
+            logo: true,
+            companyName: true,
+            address: true,
+            country: true,
+            contactName: true,
+            contactFirstName: true,
+            tel: true,
             email: true,
+            SIRET: true,
+            VATNumber: true,
+            webSite: true,
         },
     })
 

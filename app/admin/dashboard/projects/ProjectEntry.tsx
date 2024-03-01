@@ -11,7 +11,7 @@ type ProjectEntryProps = {
         id: string
         name: string
         customer: {
-            name: string
+            companyName: string
         }
     }
     index: number
@@ -22,7 +22,7 @@ export const ProjectEntry = ({ item, index }: ProjectEntryProps) => {
         <TableRow>
             <TableCell className="font-medium">{index + 1}</TableCell>
             <TableCell className="text-lg">{item.name}</TableCell>
-            <TableCell>{item.customer.name}</TableCell>
+            <TableCell>{item.customer.companyName}</TableCell>
             <TableCell className="flex items-center justify-end gap-x-4">
                 <Link href={`/admin/dashboard/projects/${item.id}`}>
                     <Pencil size={22} />

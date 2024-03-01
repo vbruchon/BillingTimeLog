@@ -9,7 +9,7 @@ export const getHours = async () => {
             reason: true,
             duration: true,
             rate: true,
-            invoiceStatus: true,
+            status: true,
             createdAt: true,
             projectId: true,
             project: {
@@ -34,7 +34,7 @@ export const getHourEntryById = async (hourId: string) => {
             reason: true,
             duration: true,
             rate: true,
-            invoiceStatus: true,
+            status: true,
             projectId: true,
         },
     })
@@ -47,7 +47,7 @@ export type hourEntryType = {
     reason: string
     duration: number
     rate: number
-    invoiceStatus: string
+    status: string
     projectId: string
 }
 
@@ -80,7 +80,7 @@ export const getProjectsAndHoursByCustomerId = async (
                     reason: true,
                     duration: true,
                     rate: true,
-                    invoiceStatus: true,
+                    status: true,
                     projectId: true,
                 },
             })
@@ -115,7 +115,7 @@ export const getHoursByProjectId = (
     reason: string
     duration: number
     rate: number
-    invoiceStatus: string
+    status: string
     projectId: string
 }*/
 export const getHoursByCustomerId = async (customerId?: string) => {
@@ -133,7 +133,7 @@ export const getHoursByCustomerId = async (customerId?: string) => {
             reason: true,
             duration: true,
             rate: true,
-            invoiceStatus: true,
+            status: true,
             projectId: true,
         },
     })
@@ -177,7 +177,9 @@ export const getCountOfHoursEntry = async () => {
     return totalDuration
 }
 
-export const getCountOfHoursByInvoiceStatus = async (status: string) => {
+export const getCountOfHoursByInvoiceStatus = async (
+    status: 'unbilled' | 'billed'
+) => {
     const customers = await getCustomers()
 
     const hoursEntries = await Promise.all(
@@ -189,7 +191,7 @@ export const getCountOfHoursByInvoiceStatus = async (status: string) => {
                 include: {
                     hours: {
                         where: {
-                            invoiceStatus: status,
+                            status: status,
                         },
                     },
                 },
@@ -219,7 +221,9 @@ export const getCountOfHoursByInvoiceStatus = async (status: string) => {
     return totalPaid
 }
 
-export const getAverageDurationByInvoiceStatus = async (status: string) => {
+export const getAverageDurationByInvoiceStatus = async (
+    status: 'unbilled' | 'billed'
+) => {
     const customers = await getCustomers()
 
     const { totalHours, totalProjects } = await customers.reduce(
@@ -234,7 +238,7 @@ export const getAverageDurationByInvoiceStatus = async (status: string) => {
                     hours: {
                         where: {
                             NOT: {
-                                invoiceStatus: status,
+                                status: status,
                             },
                         },
                     },

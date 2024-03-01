@@ -7,7 +7,7 @@ import { deleteProject } from '../projects/[projectId]/project.action'
 export type CustomerEntryProps = {
     item: {
         id: string
-        name: string
+        companyName: string
         email: string
     }
     index: number
@@ -15,9 +15,9 @@ export type CustomerEntryProps = {
 
 export const CustomerEntry = ({ item, index }: CustomerEntryProps) => {
     return (
-        <TableRow key={item.name}>
+        <TableRow key={item.companyName}>
             <TableCell className="font-medium">{index + 1}</TableCell>
-            <TableCell className="text-lg">{item.name}</TableCell>
+            <TableCell className="text-lg">{item.companyName}</TableCell>
             <TableCell>{item.email}</TableCell>
             <TableCell className="flex items-center justify-end gap-x-4">
                 <Link href={`/admin/dashboard/customers/${item.id}`}>

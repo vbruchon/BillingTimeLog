@@ -39,11 +39,7 @@ const generateHourEntries = async (projectId: string) => {
                     min: 45,
                     max: 500,
                 }),
-                invoiceStatus: faker.helpers.arrayElement([
-                    'Pending',
-                    'Paid',
-                    'Overdue',
-                ]),
+                status: faker.helpers.arrayElement(['unbilled', 'billed']),
             },
         })
         hourEntries.push(hourEntry)
@@ -59,9 +55,23 @@ const main = async () => {
     for (let i = 0; i < 10; i++) {
         const customer = await prisma.customer.create({
             data: {
-                name: faker.company.name(),
+                logo: faker.image.url(),
+                companyName: faker.company.name(),
+                address: faker.location.streetAddress(),
+                country: faker.location.country(),
+                contactName: faker.person.lastName(),
+                contactFirstName: faker.person.firstName(),
+                tel: faker.phone.number(),
                 email: faker.internet.email(),
-                emailVerified: faker.date.past(),
+                emailVerifiedAt: faker.date.past(),
+                SIRET:
+                    faker.number
+                        .int({ min: 100000000, max: 999999999 })
+                        .toString() +
+                    faker.number.int({ min: 10000, max: 99999 }).toString(),
+
+                webSite: faker.internet.url(),
+                createdAt: faker.date.past(),
                 userId: user.id,
             },
         })
