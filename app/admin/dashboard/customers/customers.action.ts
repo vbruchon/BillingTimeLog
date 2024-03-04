@@ -8,17 +8,36 @@ import { CustomerFormSchema } from './customers.schema'
 
 export const deleteCustomer = async (customerId: string) => {
     try {
+        await prisma.hourEntry.deleteMany({
+            where: {
+                project: {
+                    customerId: customerId,
+                },
+            },
+        })
+
+        await prisma.project.deleteMany({
+            where: {
+                customerId: customerId,
+            },
+        })
+
         await prisma.customer.delete({
             where: {
                 id: customerId,
             },
         })
-        revalidatePath('/admin//dashboard/customers')
-        return { message: 'The customer has been succesfully deleted' }
+
+        revalidatePath('/admin/dashboard/customers')
+        return { message: 'Le client a été supprimé avec succès' }
     } catch (error) {
-        return { message: error }
+        return {
+            message:
+                "Une erreur s'est produite lors de la suppression du client.",
+        }
     }
 }
+
 const CustomerActionEditProps = z.object({
     customerId: z.string(),
     data: CustomerFormSchema,

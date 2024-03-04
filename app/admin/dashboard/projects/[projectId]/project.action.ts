@@ -5,9 +5,16 @@ import { authentifiedAction } from '@/lib/db/safe-action'
 import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
 import { ProjectFormSchema } from './project.schema'
+import { getProjectsById } from '../projects.query'
 
 export const deleteProject = async (projectId: string) => {
     try {
+        await prisma.hourEntry.deleteMany({
+            where: {
+                projectId: projectId,
+            },
+        })
+
         await prisma.project.delete({
             where: {
                 id: projectId,
@@ -17,6 +24,28 @@ export const deleteProject = async (projectId: string) => {
         return { message: 'The project has been succesfully deleted' }
     } catch (error) {
         return { message: error }
+    }
+}
+
+export const changeProjectStatus = async (projectId: string) => {
+    const project = await getProjectsById(projectId)
+    if (project) {
+        const newStatus =
+            project.status === 'in_progress' ? 'completed' : 'in_progress'
+
+        const projectUpdated = await prisma.project.update({
+            where: {
+                id: projectId,
+            },
+            data: {
+                status: newStatus,
+            },
+        })
+        revalidatePath('/admin/dashboard/projects')
+        return projectUpdated
+    } else {
+        console.log('project not found')
+        return { message: 'The project was not found' }
     }
 }
 

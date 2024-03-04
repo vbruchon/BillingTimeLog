@@ -2,6 +2,7 @@ import ListPage from '@/components/layout/dashboard/ListPage'
 import { getProjects } from './projects.query'
 import { ProjectEntry } from './ProjectEntry'
 import { TableHead, TableRow } from '@/components/ui/table'
+import { Table } from 'lucide-react'
 
 const ProjectsPage = async () => {
     const projects = await getProjects()
@@ -23,6 +24,9 @@ const ProjectTableHeader = () => {
             <TableHead>ID</TableHead>
             <TableHead>Project Name</TableHead>
             <TableHead>Customer</TableHead>
+            <TableHead className="text-center">Total Hours</TableHead>
+            <TableHead className="text-center">Total Invoice</TableHead>
+            <TableHead className="text-center">Status</TableHead>
             <TableHead className="text-right">Action</TableHead>
         </TableRow>
     )

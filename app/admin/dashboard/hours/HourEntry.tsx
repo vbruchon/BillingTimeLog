@@ -5,6 +5,7 @@ import { DeleteButtonWithConfirmation } from '@/components/layout/dashboard/butt
 import { cn } from '@/lib/utils'
 import { Badge } from '@/components/ui/badge'
 import { deleteHourEntry } from './[hourEntryId]/hourEntry.action'
+import { ActionButton } from '@/components/layout/dashboard/button/ActionButton'
 
 type HourEntryProps = {
     item: {
@@ -49,13 +50,11 @@ export const HourEntry = ({ item, index }: HourEntryProps) => {
                 </Badge>
             </TableCell>
             <TableCell className="flex items-center justify-end gap-x-4">
-                <Link href={`/admin/dashboard/hours/${item.id}`}>
-                    <Pencil size={22} />
-                </Link>
-                <DeleteButtonWithConfirmation
+                <ActionButton
                     id={item.id}
                     element="hour entry"
-                    deleteFunction={deleteHourEntry}
+                    editLink={`/admin/dashboard/hours/${item.id}`}
+                    deleteItem={deleteHourEntry}
                 />
             </TableCell>
         </TableRow>

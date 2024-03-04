@@ -3,7 +3,7 @@ import { getCustomers } from '../customers/customers.query'
 import { ProjectStatus } from '@prisma/client'
 
 export const getProjects = async () => {
-    const projects = prisma.project.findMany({
+    const projects = await prisma.project.findMany({
         select: {
             id: true,
             name: true,
@@ -12,11 +12,34 @@ export const getProjects = async () => {
                     companyName: true,
                 },
             },
+            status: true,
+            hours: {
+                select: {
+                    id: true,
+                },
+            },
+            Invoice: {
+                select: {
+                    id: true,
+                },
+            },
+        },
+        orderBy: {
+            createdAt: 'desc',
         },
     })
 
-    return projects
+    const projectsWithCounts = projects.map((project) => {
+        return {
+            ...project,
+            totalHours: project.hours.length,
+            totalInvoices: project.Invoice.length,
+        }
+    })
+
+    return projectsWithCounts
 }
+
 export const getProjectsById = async (projectId: string) => {
     const project = await prisma.project.findUniqueOrThrow({
         where: {
@@ -26,6 +49,7 @@ export const getProjectsById = async (projectId: string) => {
             id: true,
             name: true,
             customerId: true,
+            status: true,
         },
     })
     return project

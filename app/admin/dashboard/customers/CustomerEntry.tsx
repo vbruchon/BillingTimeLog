@@ -3,6 +3,8 @@ import { TableCell, TableRow } from '@/components/ui/table'
 import Link from 'next/link'
 import { DeleteButtonWithConfirmation } from '@/components/layout/dashboard/button/DeleteButtonWithConfirmation'
 import { deleteProject } from '../projects/[projectId]/project.action'
+import { ActionButton } from '@/components/layout/dashboard/button/ActionButton'
+import { deleteCustomer } from './customers.action'
 
 export type CustomerEntryProps = {
     item: {
@@ -20,13 +22,11 @@ export const CustomerEntry = ({ item, index }: CustomerEntryProps) => {
             <TableCell className="text-lg">{item.companyName}</TableCell>
             <TableCell>{item.email}</TableCell>
             <TableCell className="flex items-center justify-end gap-x-4">
-                <Link href={`/admin/dashboard/customers/${item.id}`}>
-                    <Pencil size={22} />
-                </Link>
-                <DeleteButtonWithConfirmation
+                <ActionButton
                     id={item.id}
                     element="customer"
-                    deleteFunction={deleteProject}
+                    editLink={`/admin/dashboard/customers/${item.id}`}
+                    deleteItem={deleteCustomer}
                 />
             </TableCell>
         </TableRow>
