@@ -1,20 +1,15 @@
 'use client'
-import {
-    Form,
-    FormControl,
-    FormDescription,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
-    useZodForm,
-} from '@/components/ui/form'
+import { Form, useZodForm } from '@/components/ui/form'
 import { CustomerFormSchema } from '../customers.schema'
-import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { customerActionCreate, customerActionEdit } from '../customers.action'
 import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
+import { CustomerFormLogoElement } from './CustomerFormLogoElement'
+import { CustomerFormCompanyInfo } from './CustomerFormCompanyInfo'
+import { CustomerFormContactInfo } from './CustomerFormContactInfo'
+import { CustomerFormButton } from './CustomerFormButton'
+import { log } from 'console'
 
 export type CustomerFormProps = {
     defaultValue?: CustomerFormSchema & {
@@ -29,10 +24,13 @@ export const CustomerForm = ({ defaultValue }: CustomerFormProps) => {
     })
 
     const router = useRouter()
+    const buttonText = defaultValue ? 'Update Customer' : 'Create Customer'
+    console.log(buttonText)
 
     return (
         <Form
             form={form}
+            className="relative flex flex-col p-4"
             onSubmit={async (values) => {
                 if (defaultValue) {
                     const { data, serverError } = await customerActionEdit({
@@ -41,6 +39,8 @@ export const CustomerForm = ({ defaultValue }: CustomerFormProps) => {
                     })
                     if (data) {
                         toast.success(data.message)
+                        router.back()
+                        router.refresh()
                         return
                     }
                     toast.error('Some error occurred', {
@@ -51,10 +51,13 @@ export const CustomerForm = ({ defaultValue }: CustomerFormProps) => {
                     const { data, serverError } =
                         await customerActionCreate(values)
                     if (data) {
+                        console.log('success')
                         toast.success(data.message)
                         router.back()
                         return
                     }
+                    console.log('error')
+
                     toast.error('Some error occurred', {
                         description: serverError,
                     })
@@ -62,39 +65,18 @@ export const CustomerForm = ({ defaultValue }: CustomerFormProps) => {
                 }
             }}
         >
-            <FormField
-                control={form.control}
-                name="companyName"
-                render={({ field }) => (
-                    <FormItem>
-                        <FormLabel className="text-xl">Company name</FormLabel>
-                        <FormControl>
-                            <Input placeholder="VBCODE" {...field} />
-                        </FormControl>
-                        <FormDescription>
-                            This is the name of your customer.
-                        </FormDescription>
-                        <FormMessage />
-                    </FormItem>
-                )}
-            />
-            <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                    <FormItem>
-                        <FormLabel className="text-xl">Email</FormLabel>
-                        <FormControl>
-                            <Input placeholder="example@email.fr" {...field} />
-                        </FormControl>
-                        <FormDescription>
-                            This is the email of your customer.
-                        </FormDescription>
-                        <FormMessage />
-                    </FormItem>
-                )}
-            />
-            <Button type="submit">Submit</Button>
+            <div className="mb-8 flex flex-col">
+                <CustomerFormLogoElement form={form} />
+                <CustomerFormCompanyInfo form={form} />
+                <CustomerFormContactInfo form={form} />
+                <CustomerFormButton text={buttonText} />
+            </div>
         </Form>
     )
 }
+
+/* 
+
+            !!!!!! JE NE PEUX PAS CRÉER DE CUSTOMER RIEN NE SE PASSE !!!!!
+
+*/
