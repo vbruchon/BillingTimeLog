@@ -4,7 +4,7 @@ import {
     getCountOfProjects,
     getPercentageCompletedProjects,
     getPercentageInProgressProject,
-} from './projects/projects.query'
+} from '../../../../app/admin/dashboard/projects/projects.query'
 import { CardStats } from '@/components/features/statistiques/CardStats'
 
 export const ProjectStats = async () => {

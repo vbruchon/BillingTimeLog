@@ -5,7 +5,7 @@ import {
     getCountOfHoursByInvoiceStatus,
     getAverageDurationByInvoiceStatus,
     getTotalRevenue,
-} from './hours/hourEntry.query'
+} from '../../../../app/admin/dashboard/hours/hourEntry.query'
 import { CardStats } from '@/components/features/statistiques/CardStats'
 
 export const HoursStats = async () => {

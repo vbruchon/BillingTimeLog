@@ -5,7 +5,7 @@ import {
     getTotalRevenue,
     getTotalRevenueForCurrentYear,
     getTotalRevenueForCurrentMonth,
-} from './hours/hourEntry.query'
+} from '../../../../app/admin/dashboard/hours/hourEntry.query'
 
 export type RevenueStatsProps = {
     userId: string

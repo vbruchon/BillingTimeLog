@@ -6,10 +6,10 @@ import {
 } from '@/components/layout/Layout'
 import { getRequiredAuthSession } from '@/lib/auth'
 import React from 'react'
-import { CustomerStats } from './CustomerStats'
-import { ProjectStats } from './ProjectsStats'
-import { HoursStats } from './HoursStats'
-import { RevenueStats } from './RevenueStats'
+import { CustomerStats } from '../../../src/components/features/statistiques/CustomerStats'
+import { ProjectStats } from '../../../src/components/features/statistiques/ProjectsStats'
+import { HoursStats } from '../../../src/components/features/statistiques/HoursStats'
+import { RevenueStats } from '../../../src/components/features/statistiques/RevenueStats'
 
 async function DashboardPage() {
     const session = await getRequiredAuthSession()

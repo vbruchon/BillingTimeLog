@@ -3,7 +3,7 @@ import { UserPlus, Users } from 'lucide-react'
 import {
     getCountNewCustomers,
     getCountofCustomers,
-} from './customers/customers.query'
+} from '../../../../app/admin/dashboard/customers/customers.query'
 import { CardStats } from '@/components/features/statistiques/CardStats'
 import { Typography } from '@/components/ui/Typography'
 
