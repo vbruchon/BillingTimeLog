@@ -3,7 +3,7 @@ import { z } from 'zod'
 //JS
 export const ProjectFormSchema = z.object({
     name: z.string().min(3).max(40),
-    customerId: z.string(),
+    customerId: z.string().max(25),
 })
 
 //TS

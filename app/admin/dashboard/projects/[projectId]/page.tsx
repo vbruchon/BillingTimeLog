@@ -15,7 +15,9 @@ export default async function ProjectPage({
 
     return (
         <>
-            <Typography variant={'h1'}>Edit Project</Typography>
+            <Typography variant={'h1'}>
+                Edit Project - {project.name}
+            </Typography>
             <Card className="mx-auto mt-8 w-2/3">
                 <CardContent className="p-4">
                     <ProjectForm defaultValue={project} customers={customers} />

@@ -13,7 +13,7 @@ const ProjectsPage = async () => {
             data={projects}
             tableHeaderComponent={ProjectTableHeader}
             entryComponent={ProjectEntry}
-            newLink="/admin/dashboard/customers/new"
+            newLink="/admin/dashboard/projects/new"
         />
     )
 }

@@ -11,6 +11,7 @@ export const getCustomers = async () => {
             id: true,
             companyName: true,
             email: true,
+            logo: true,
         },
     })
 
