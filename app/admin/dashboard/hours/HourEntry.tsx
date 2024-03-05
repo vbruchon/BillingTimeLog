@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { DeleteButtonWithConfirmation } from '@/components/layout/dashboard/button/DeleteButtonWithConfirmation'
 import { cn } from '@/lib/utils'
 import { Badge } from '@/components/ui/badge'
-import { deleteHourEntry } from './[hourEntryId]/hourEntry.action'
+import { deleteHourEntry } from './hourEntry.action'
 import { ActionButton } from '@/components/layout/dashboard/button/ActionButton'
 
 type HourEntryProps = {

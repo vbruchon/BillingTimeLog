@@ -67,6 +67,7 @@ const FormField = <
 >({
     ...props
 }: ControllerProps<TFieldValues, TName>) => {
+    const { register } = useFormContext()
     return (
         <FormFieldContext.Provider value={{ name: props.name }}>
             <Controller {...props} />

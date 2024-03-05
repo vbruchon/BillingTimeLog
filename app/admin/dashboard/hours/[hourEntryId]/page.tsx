@@ -10,15 +10,20 @@ export default async function HourEntryPage({
     params: { hourEntryId: string }
 }) {
     const hourEntry = await getHourEntryById(params.hourEntryId)
+    const hourEntryAsString = {
+        ...hourEntry,
+        duration: hourEntry.duration.toString(),
+        rate: hourEntry.rate.toString(),
+    }
     const projects = await getProjects()
 
     return (
         <>
-            <Typography variant={'h1'}>Edit Project</Typography>
+            <Typography variant={'h1'}>Edit Hours</Typography>
             <Card className="mx-auto mt-8 w-2/3">
                 <CardContent className="p-4">
                     <HourEntryForm
-                        defaultValue={hourEntry}
+                        defaultValue={hourEntryAsString}
                         projects={projects}
                     />
                 </CardContent>

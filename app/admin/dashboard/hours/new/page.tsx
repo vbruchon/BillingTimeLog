@@ -8,7 +8,7 @@ export default async function HourEntryPage() {
 
     return (
         <>
-            <Typography variant={'h1'}>Edit Project</Typography>
+            <Typography variant={'h1'}>Create a new Hour</Typography>
             <Card className="mx-auto mt-8 w-2/3">
                 <CardContent className="p-4">
                     <HourEntryForm projects={projects} />

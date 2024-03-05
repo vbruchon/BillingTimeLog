@@ -18,6 +18,9 @@ export const getHours = async () => {
                 },
             },
         },
+        orderBy: {
+            createdAt: 'desc',
+        },
     })
 
     return hours

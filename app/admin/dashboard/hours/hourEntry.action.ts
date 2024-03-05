@@ -32,7 +32,11 @@ export const hourEntryActionEdit = authentifiedAction(
             where: {
                 id: props.hourEntryId,
             },
-            data: props.data,
+            data: {
+                ...props.data,
+                duration: Number(props.data.duration),
+                rate: Number(props.data.rate),
+            },
         })
         return { message: 'Customer update successfully !', updatedHourEntry }
     }
@@ -42,7 +46,11 @@ export const hourEntryActionCreate = authentifiedAction(
     HourEntryFormSchema,
     async (props, { userId }) => {
         const newHourEntry = await prisma.hourEntry.create({
-            data: { ...props },
+            data: {
+                ...props,
+                duration: Number(props.duration),
+                rate: Number(props.rate),
+            },
         })
         return { message: 'Customer created successfully!', newHourEntry }
     }

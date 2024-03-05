@@ -1,29 +1,17 @@
 'use client'
-import {
-    Form,
-    FormControl,
-    FormDescription,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
-    useZodForm,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
+import { Form, useZodForm } from '@/components/ui/form'
 import { Button } from '@/components/ui/button'
 import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
-import { HourEntryFormSchema } from './hourEntry.schema'
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from '@/components/ui/select'
-import { hourEntryActionCreate, hourEntryActionEdit } from './hourEntry.action'
+import { HourEntryFormSchema } from '../hourEntry.schema'
+import { hourEntryActionCreate, hourEntryActionEdit } from '../hourEntry.action'
+import { HourEntryFormDataPicker } from './HourEntryFormDataPicker'
+import { HourEntryFormDuration } from './HourEntryDuration'
+import { HourEntryFormRate } from './HourEntryFormRate'
+import { HourEntryFormReason } from './HourEntryFormReason'
+import { HourEntryFormProjectSelect } from './HourEntryFormProjectSelect'
 
-export type CustomerFormProps = {
+export type HourEntryFormProps = {
     defaultValue?: HourEntryFormSchema & {
         id: string
         projectId: string
@@ -37,7 +25,7 @@ export type CustomerFormProps = {
 export const HourEntryForm = ({
     defaultValue,
     projects,
-}: CustomerFormProps) => {
+}: HourEntryFormProps) => {
     const form = useZodForm({
         schema: HourEntryFormSchema,
         defaultValues: defaultValue,
@@ -45,183 +33,50 @@ export const HourEntryForm = ({
 
     const router = useRouter()
 
-    const hourEntryProject = projects.find(
-        (project) => project.id === defaultValue?.projectId
-    )
+    const handleSubmit = async (values: HourEntryFormSchema) => {
+        console.log(values)
+        const { data, serverError } = defaultValue
+            ? await hourEntryActionEdit({
+                  hourEntryId: defaultValue.id,
+                  data: values,
+              })
+            : await hourEntryActionCreate(values)
+
+        if (data) {
+            toast.success(data.message)
+            router.push('/admin/dashboard/hours')
+            router.refresh()
+            return
+        }
+        toast.error('Some error occurred', {
+            description: serverError,
+        })
+        return
+    }
 
     return (
-        <Form
-            form={form}
-            onSubmit={async (values) => {
-                const { data, serverError } = defaultValue
-                    ? await hourEntryActionEdit({
-                          hourEntryId: defaultValue.id,
-                          data: values,
-                      })
-                    : await hourEntryActionCreate(values)
-
-                if (data) {
-                    toast.success(data.message)
-                    router.back()
-                    return
-                }
-                toast.error('Some error occurred', {
-                    description: serverError,
-                })
-                return
-            }}
-        >
-            <FormField
-                control={form.control}
-                name="date"
-                render={({ field }) => (
-                    <FormItem>
-                        <FormLabel className="text-xl">Date</FormLabel>
-                        <FormControl>
-                            <Input
-                                type="date"
-                                {...field}
-                                value={
-                                    defaultValue
-                                        ? defaultValue.date
-                                              .toISOString()
-                                              .split('T')[0]
-                                        : new Date().toISOString().split('T')[0]
-                                }
-                            />
-                        </FormControl>
-                        <FormMessage />
-                    </FormItem>
-                )}
-            />
-
-            <FormField
-                control={form.control}
-                name="reason"
-                render={({ field }) => (
-                    <FormItem>
-                        <FormLabel className="text-xl">Reason</FormLabel>
-                        <FormControl>
-                            <Input
-                                type="text"
-                                placeholder={
-                                    defaultValue
-                                        ? defaultValue.reason
-                                        : 'setup project | create theme ...'
-                                }
-                                {...field}
-                            />
-                        </FormControl>
-                        <FormDescription>
-                            This is the reason of why you have work.
-                        </FormDescription>
-                        <FormMessage />
-                    </FormItem>
-                )}
-            />
-            <FormField
-                control={form.control}
-                name="duration"
-                render={({ field }) => (
-                    <FormItem>
-                        <FormLabel className="text-xl">Duration</FormLabel>
-                        <FormControl>
-                            <Input
-                                type="number"
-                                placeholder="Choose a duration"
-                                {...field}
-                            />
-                        </FormControl>
-                        <FormMessage />
-                    </FormItem>
-                )}
-            />
-            <FormField
-                control={form.control}
-                name="rate"
-                render={({ field }) => (
-                    <FormItem>
-                        <FormLabel className="text-xl">Rate</FormLabel>
-                        <FormControl>
-                            <Input
-                                type="number"
-                                step={0.01}
-                                placeholder="45"
-                                {...field}
-                            />
-                        </FormControl>
-                        <FormMessage />
-                    </FormItem>
-                )}
-            />
-            <FormField
-                control={form.control}
-                name="invoiceStatus"
-                render={({ field }) => (
-                    <FormItem>
-                        <FormLabel className="text-xl">Status</FormLabel>
-                        <FormControl>
-                            <Select>
-                                <SelectTrigger className="w-[180px]">
-                                    <SelectValue
-                                        placeholder={
-                                            defaultValue
-                                                ? defaultValue.invoiceStatus
-                                                : 'Choose a status'
-                                        }
-                                        {...field}
-                                    />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem value="Pending">
-                                        Pending
-                                    </SelectItem>
-                                    <SelectItem value="Paid">Paid</SelectItem>
-                                    <SelectItem value="Overdue">
-                                        Overdue
-                                    </SelectItem>
-                                </SelectContent>
-                            </Select>
-                        </FormControl>
-                        <FormMessage />
-                    </FormItem>
-                )}
-            />
-            <FormField
-                control={form.control}
-                name="projectId"
-                render={({ field }) => (
-                    <FormItem>
-                        <FormLabel className="text-xl">Project</FormLabel>
-                        <FormControl>
-                            <Select>
-                                <SelectTrigger className="w-[180px]">
-                                    <SelectValue
-                                        placeholder={
-                                            defaultValue
-                                                ? hourEntryProject?.name
-                                                : 'Choose a project'
-                                        }
-                                        {...field}
-                                    />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    {projects.map((project, index) => (
-                                        <SelectItem
-                                            key={index}
-                                            value={project.name}
-                                        >
-                                            {project.name}
-                                        </SelectItem>
-                                    ))}
-                                </SelectContent>
-                            </Select>
-                        </FormControl>
-                        <FormMessage />
-                    </FormItem>
-                )}
-            />
-            <Button type="submit">Submit</Button>
+        <Form form={form} onSubmit={handleSubmit} className="flex flex-col">
+            <div className="item-center flex gap-8">
+                <HourEntryFormDataPicker
+                    defaultValue={defaultValue?.date}
+                    form={form}
+                />
+                <HourEntryFormDuration form={form} />
+                <HourEntryFormRate form={form} />
+            </div>
+            <div className="item-center mt-8 flex gap-6">
+                <HourEntryFormReason defaultValue={defaultValue} form={form} />
+                <HourEntryFormProjectSelect
+                    projects={projects}
+                    defaultValue={defaultValue}
+                    form={form}
+                />
+            </div>
+            <div className="mt-4 flex justify-end">
+                <Button type="submit">
+                    {defaultValue ? 'Update Hour' : 'Create Hour'}
+                </Button>
+            </div>
         </Form>
     )
 }

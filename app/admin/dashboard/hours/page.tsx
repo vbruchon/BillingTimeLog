@@ -5,6 +5,11 @@ import { TableHead, TableRow } from '@/components/ui/table'
 
 const HoursPage = async () => {
     const hours = await getHours()
+    hours.forEach((hour) => {
+        if (hour.rate) {
+            hour.rate = hour.duration * hour.rate
+        }
+    })
 
     return (
         <ListPage
@@ -12,7 +17,7 @@ const HoursPage = async () => {
             data={hours}
             tableHeaderComponent={HoursTableHeader}
             entryComponent={HourEntry}
-            newLink="/admin/dashboard/customers/new"
+            newLink="/admin/dashboard/hours/new"
         />
     )
 }
