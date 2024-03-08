@@ -8,7 +8,6 @@ import { Providers } from './Provider'
 import { SiteConfig } from '@/lib/site-config'
 import { Footer } from '@/components/layout/Footer'
 import { Header } from '@/components/layout/Header'
-import { Toaster } from '@/components/ui/toaster'
 
 const fontSans = Inter({ subsets: ['latin'], variable: '--font-sans' })
 
@@ -20,7 +19,9 @@ export const metadata: Metadata = {
 export default function RootLayout({
     children,
     modal,
-}: PropsWithChildren<{ modal?: ReactNode }>) {
+}: PropsWithChildren<{
+    modal?: ReactNode
+}>) {
     return (
         <html lang="en" className="h-full" suppressHydrationWarning>
             <head />
@@ -41,7 +42,6 @@ export default function RootLayout({
                     </div>
                     <TailwindIndicator />
                 </Providers>
-                <Toaster />
             </body>
         </html>
     )
