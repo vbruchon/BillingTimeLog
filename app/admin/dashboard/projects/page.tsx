@@ -4,9 +4,14 @@ import { ProjectEntry } from './ProjectEntry'
 import { TableHead, TableRow } from '@/components/ui/table'
 import { Table } from 'lucide-react'
 
-const ProjectsPage = async () => {
-    const projects = await getProjects()
+const ProjectsPage = async ({
+    searchParams,
+}: {
+    searchParams: { [key: string]: string | string[] | undefined }
+}) => {
+    const page = Number(searchParams.page ?? 1)
 
+    const { projects, totalProjects } = await getProjects({ page })
     return (
         <ListPage
             title="Projects Page"
@@ -14,6 +19,9 @@ const ProjectsPage = async () => {
             tableHeaderComponent={ProjectTableHeader}
             entryComponent={ProjectEntry}
             newLink="/admin/dashboard/projects/new"
+            page={page}
+            totalPage={Math.ceil((totalProjects ?? 0) / 10) + 1}
+            baseUrl="/admin/dashboard/projects"
         />
     )
 }

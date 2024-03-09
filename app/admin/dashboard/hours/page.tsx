@@ -3,8 +3,14 @@ import { getHours } from './hourEntry.query'
 import { HourEntry } from './HourEntry'
 import { TableHead, TableRow } from '@/components/ui/table'
 
-const HoursPage = async () => {
-    const hours = await getHours()
+const HoursPage = async ({
+    searchParams,
+}: {
+    params: { courseId: string }
+    searchParams: { [key: string]: string | string[] | undefined }
+}) => {
+    const page = Number(searchParams.page ?? 1)
+    const { hours, totalHours } = await getHours({ page })
     hours.forEach((hour) => {
         if (hour.rate) {
             hour.rate = hour.duration * hour.rate
@@ -18,6 +24,9 @@ const HoursPage = async () => {
             tableHeaderComponent={HoursTableHeader}
             entryComponent={HourEntry}
             newLink="/admin/dashboard/hours/new"
+            page={page}
+            totalPage={Math.ceil((totalHours ?? 0) / 10) + 1}
+            baseUrl="/admin/dashboard/hours"
         />
     )
 }

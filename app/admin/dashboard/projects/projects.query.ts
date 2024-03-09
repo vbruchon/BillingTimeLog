@@ -1,8 +1,13 @@
 import { prisma } from '@/lib/db/prisma'
 import { getCustomers } from '../customers/customers.query'
 import { ProjectStatus } from '@prisma/client'
+import { pages } from 'next/dist/build/templates/app-page'
 
-export const getProjects = async () => {
+export const getProjects = async ({ page }: { page: number }) => {
+    const pageSize = 10
+
+    const totalProjects = await prisma.project.count()
+
     const projects = await prisma.project.findMany({
         select: {
             id: true,
@@ -27,6 +32,8 @@ export const getProjects = async () => {
         orderBy: {
             createdAt: 'desc',
         },
+        take: pageSize,
+        skip: Math.max(0, (page - 1) * pageSize),
     })
 
     const projectsWithCounts = projects.map((project) => {
@@ -37,7 +44,7 @@ export const getProjects = async () => {
         }
     })
 
-    return projectsWithCounts
+    return { projectsWithCounts, totalProjects, projects }
 }
 
 export const getProjectsById = async (projectId: string) => {
@@ -55,7 +62,7 @@ export const getProjectsById = async (projectId: string) => {
     return project
 }
 export const getCountOfProjects = async () => {
-    const customers = await getCustomers()
+    const { customers } = await getCustomers({ page: 0 })
 
     const projectCounts = await Promise.all(
         customers.map(async (customer) => {
@@ -78,7 +85,7 @@ export const getCountOfProjects = async () => {
 
 export const getPercentageInProgressProject = async () => {
     const totalProject = await getCountOfProjects()
-    const customers = await getCustomers()
+    const { customers } = await getCustomers({})
 
     const projectInprogressCounts = await Promise.all(
         customers.map(async (customer) => {
@@ -102,7 +109,7 @@ export const getPercentageInProgressProject = async () => {
 
 export const getPercentageCompletedProjects = async () => {
     const totalProject = await getCountOfProjects()
-    const customers = await getCustomers()
+    const { customers } = await getCustomers({})
 
     const projectInprogressCounts = await Promise.all(
         customers.map(async (customer) => {

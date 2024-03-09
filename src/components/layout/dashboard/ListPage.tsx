@@ -8,8 +8,8 @@ import {
 import { Plus } from 'lucide-react'
 import Link from 'next/link'
 import { ComponentType } from 'react'
-import { Layout, LayoutContent, LayoutHeader, LayoutTitle } from '../Layout'
 import { Card, CardContent } from '@/components/ui/card'
+import { CustomPagination } from '@/components/features/pagination/CustomPagination'
 
 type ListPageProps = {
     title: string
@@ -17,6 +17,9 @@ type ListPageProps = {
     tableHeaderComponent: ComponentType<any>
     newLink: string
     data: any[]
+    page: number
+    totalPage: number
+    baseUrl: string
 }
 
 const ListPage = ({
@@ -25,6 +28,9 @@ const ListPage = ({
     tableHeaderComponent,
     entryComponent,
     newLink,
+    page,
+    totalPage,
+    baseUrl,
 }: ListPageProps) => {
     const EntryComponent = entryComponent
     const TableHeaderComponent = tableHeaderComponent
@@ -60,6 +66,13 @@ const ListPage = ({
                             ))}
                         </TableBody>
                     </Table>
+                    {totalPage > 1 && (
+                        <CustomPagination
+                            page={page}
+                            totalPage={totalPage}
+                            baseUrl={baseUrl}
+                        />
+                    )}
                 </CardContent>
             </Card>
         </div>
@@ -67,4 +80,3 @@ const ListPage = ({
 }
 
 export default ListPage
-/*  */

@@ -1,8 +1,12 @@
 import { prisma } from '@/lib/db/prisma'
 import { getCustomers } from '../customers/customers.query'
 
-export const getHours = async () => {
-    const hours = prisma.hourEntry.findMany({
+export const getHours = async ({ page }: { page: number }) => {
+    const pageSize = 10
+
+    const totalHours = await prisma.hourEntry.count()
+
+    const hours = await prisma.hourEntry.findMany({
         select: {
             id: true,
             date: true,
@@ -21,9 +25,14 @@ export const getHours = async () => {
         orderBy: {
             createdAt: 'desc',
         },
+        take: pageSize,
+        skip: Math.max(0, (page - 1) * pageSize),
     })
 
-    return hours
+    return {
+        hours,
+        totalHours,
+    }
 }
 
 export const getHourEntryById = async (hourId: string) => {
@@ -112,15 +121,6 @@ export const getHoursByProjectId = (
     return selectedProject?.hours
 }
 
-/* type hourEntryType = {
-    id: string
-    date: Date
-    reason: string
-    duration: number
-    rate: number
-    status: string
-    projectId: string
-}*/
 export const getHoursByCustomerId = async (customerId?: string) => {
     const projects = await prisma.project.findFirst({
         where: { customerId: customerId },
@@ -143,7 +143,7 @@ export const getHoursByCustomerId = async (customerId?: string) => {
     return hourEntry
 }
 export const getCountOfHoursEntry = async () => {
-    const customers = await getCustomers()
+    const { customers } = await getCustomers({})
 
     const HoursEntries = await Promise.all(
         customers.map(async (customer) => {
@@ -183,7 +183,7 @@ export const getCountOfHoursEntry = async () => {
 export const getCountOfHoursByInvoiceStatus = async (
     status: 'unbilled' | 'billed'
 ) => {
-    const customers = await getCustomers()
+    const { customers } = await getCustomers({})
 
     const hoursEntries = await Promise.all(
         customers.map(async (customer) => {
@@ -227,7 +227,7 @@ export const getCountOfHoursByInvoiceStatus = async (
 export const getAverageDurationByInvoiceStatus = async (
     status: 'unbilled' | 'billed'
 ) => {
-    const customers = await getCustomers()
+    const { customers } = await getCustomers({})
 
     const { totalHours, totalProjects } = await customers.reduce(
         async (accumulator, customer) => {
@@ -274,7 +274,7 @@ export const getAverageDurationByInvoiceStatus = async (
 }
 
 export const getTotalRevenue = async () => {
-    const customers = await getCustomers()
+    const { customers } = await getCustomers({})
 
     const totalRevenue = await Promise.all(
         customers.map(async (customer) => {
@@ -311,7 +311,7 @@ export const getTotalRevenue = async () => {
 }
 
 export const getTotalRevenueForCurrentYear = async () => {
-    const customers = await getCustomers()
+    const { customers } = await getCustomers({})
     const currentYear = new Date().getFullYear()
 
     const totalRevenueForCurrentYear = await Promise.all(
@@ -359,7 +359,7 @@ export const getTotalRevenueForCurrentYear = async () => {
 }
 
 export const getTotalRevenueForCurrentMonth = async () => {
-    const customers = await getCustomers()
+    const { customers } = await getCustomers({})
     const currentYear = new Date().getFullYear()
     const currentMonth = new Date().getMonth()
 

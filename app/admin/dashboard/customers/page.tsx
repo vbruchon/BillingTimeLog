@@ -3,9 +3,13 @@ import { CustomerEntry } from './CustomerEntry'
 import { getCustomers } from './customers.query'
 import ListPage from '@/components/layout/dashboard/ListPage'
 
-const CustomersPage = async () => {
-    const customers = await getCustomers()
-
+const CustomersPage = async ({
+    searchParams,
+}: {
+    searchParams: { [key: string]: string | string[] | undefined }
+}) => {
+    const page = Number(searchParams.page ?? 1)
+    const { customers, totalCustomers } = await getCustomers({ page })
     return (
         <ListPage
             title="Customers Page"
@@ -13,6 +17,9 @@ const CustomersPage = async () => {
             tableHeaderComponent={CustomerTableHeader}
             entryComponent={CustomerEntry}
             newLink="/admin/dashboard/customers/new"
+            page={page}
+            totalPage={Math.ceil((totalCustomers ?? 0) / 10) + 1}
+            baseUrl="/admin/dashboard/customers"
         />
     )
 }
