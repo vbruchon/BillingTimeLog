@@ -1,4 +1,4 @@
-import { CustomerForm } from './CustomerForm'
+import { CustomerForm } from './_components/CustomerForm'
 import { Typography } from '@/components/ui/Typography'
 import { Card, CardContent } from '@/components/ui/card'
 import { getCustomerById } from '../customers.query'
@@ -9,6 +9,7 @@ export default async function CustomerPage({
     params: { customerId: string }
 }) {
     const customer = await getCustomerById(params.customerId)
+
     return (
         <>
             <Typography variant={'h1'}>Edit {customer.companyName}</Typography>

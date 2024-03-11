@@ -12,7 +12,7 @@ export const CustomPaginationLink = ({
     page,
 }: CustomPaginationLinkProps) => {
     return (
-        <PaginationItem>
+        <PaginationItem key={index ?? page}>
             <PaginationLink
                 href={`${baseUrl}?page=${index ?? page}`}
                 isActive={page === index}

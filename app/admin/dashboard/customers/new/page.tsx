@@ -1,6 +1,6 @@
 import { Typography } from '@/components/ui/Typography'
 import { Card, CardContent } from '@/components/ui/card'
-import { CustomerForm } from '../[customerId]/CustomerForm'
+import { CustomerForm } from '../[customerId]/_components/CustomerForm'
 
 export default async function CreateCustomerPage() {
     return (

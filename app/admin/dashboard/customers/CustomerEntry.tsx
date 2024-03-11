@@ -19,7 +19,14 @@ export const CustomerEntry = ({ item, index }: CustomerEntryProps) => {
     return (
         <TableRow key={item.companyName}>
             <TableCell className="font-medium">{index + 1}</TableCell>
-            <TableCell className="text-lg">{item.companyName}</TableCell>
+            <TableCell className="text-lg">
+                <Link
+                    href="/admin/dashboard/customers/[customerId]"
+                    as={`/admin/dashboard/customers/${item.id}`}
+                >
+                    {item.companyName}
+                </Link>
+            </TableCell>
             <TableCell>{item.email}</TableCell>
             <TableCell className="flex items-center justify-end gap-x-4">
                 <ActionButton

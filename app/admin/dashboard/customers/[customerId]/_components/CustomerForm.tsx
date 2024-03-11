@@ -1,8 +1,11 @@
 'use client'
 import { Form, useZodForm } from '@/components/ui/form'
-import { CustomerFormSchema } from '../customers.schema'
+import { CustomerFormSchema } from '../../customers.schema'
 import { Button } from '@/components/ui/button'
-import { customerActionCreate, customerActionEdit } from '../customers.action'
+import {
+    customerActionCreate,
+    customerActionEdit,
+} from '../../customers.action'
 import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
 import { CustomerFormLogoElement } from './CustomerFormLogoElement'
@@ -25,7 +28,6 @@ export const CustomerForm = ({ defaultValue }: CustomerFormProps) => {
 
     const router = useRouter()
     const buttonText = defaultValue ? 'Update Customer' : 'Create Customer'
-    console.log(buttonText)
 
     return (
         <Form
