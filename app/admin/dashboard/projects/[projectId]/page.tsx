@@ -1,6 +1,5 @@
 import { Typography } from '@/components/ui/Typography'
 import { Card, CardContent } from '@/components/ui/card'
-import { prisma } from '@/lib/db/prisma'
 import { ProjectForm } from './ProjectForm'
 import { getProjectsById } from '../projects.query'
 import { getCustomers } from '../../customers/customers.query'
@@ -11,7 +10,7 @@ export default async function ProjectPage({
     params: { projectId: string }
 }) {
     const project = await getProjectsById(params.projectId)
-    const customers = await getCustomers()
+    const { customers } = await getCustomers()
 
     return (
         <>

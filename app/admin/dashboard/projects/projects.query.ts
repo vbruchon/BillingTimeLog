@@ -62,7 +62,7 @@ export const getProjectsById = async (projectId: string) => {
     return project
 }
 export const getCountOfProjects = async () => {
-    const { customers } = await getCustomers({ page: 0 })
+    const { customers } = await getCustomers()
 
     const projectCounts = await Promise.all(
         customers.map(async (customer) => {
@@ -85,7 +85,7 @@ export const getCountOfProjects = async () => {
 
 export const getPercentageInProgressProject = async () => {
     const totalProject = await getCountOfProjects()
-    const { customers } = await getCustomers({})
+    const { customers } = await getCustomers()
 
     const projectInprogressCounts = await Promise.all(
         customers.map(async (customer) => {
@@ -109,7 +109,7 @@ export const getPercentageInProgressProject = async () => {
 
 export const getPercentageCompletedProjects = async () => {
     const totalProject = await getCountOfProjects()
-    const { customers } = await getCustomers({})
+    const { customers } = await getCustomers()
 
     const projectInprogressCounts = await Promise.all(
         customers.map(async (customer) => {

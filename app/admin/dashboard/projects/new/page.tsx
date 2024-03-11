@@ -5,7 +5,7 @@ import { ProjectForm } from '../[projectId]/ProjectForm'
 import { getCustomers } from '../../customers/customers.query'
 
 export default async function CreateProjectPage() {
-    const customers = await getCustomers()
+    const { customers } = await getCustomers()
 
     return (
         <>

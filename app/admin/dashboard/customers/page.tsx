@@ -1,6 +1,6 @@
 import { TableHead, TableRow } from '@/components/ui/table'
 import { CustomerEntry } from './CustomerEntry'
-import { getCustomers } from './customers.query'
+import { getCustomersByPage } from './customers.query'
 import ListPage from '@/components/layout/dashboard/ListPage'
 
 const CustomersPage = async ({
@@ -9,7 +9,8 @@ const CustomersPage = async ({
     searchParams: { [key: string]: string | string[] | undefined }
 }) => {
     const page = Number(searchParams.page ?? 1)
-    const { customers, totalCustomers } = await getCustomers({ page })
+    const { customers, totalCustomers } = await getCustomersByPage({ page })
+
     return (
         <ListPage
             title="Customers Page"
@@ -18,7 +19,7 @@ const CustomersPage = async ({
             entryComponent={CustomerEntry}
             newLink="/admin/dashboard/customers/new"
             page={page}
-            totalPage={Math.ceil((totalCustomers ?? 0) / 10) + 1}
+            totalPage={Math.ceil((totalCustomers ?? 0) / 5) + 1}
             baseUrl="/admin/dashboard/customers"
         />
     )
@@ -27,7 +28,7 @@ const CustomersPage = async ({
 const CustomerTableHeader = () => {
     return (
         <TableRow className="text-lg">
-            <TableHead>ID</TableHead>
+            <TableHead>Logo</TableHead>
             <TableHead>Company Name</TableHead>
             <TableHead>Email</TableHead>
             <TableHead className="text-right">Action</TableHead>

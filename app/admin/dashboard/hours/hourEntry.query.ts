@@ -143,7 +143,7 @@ export const getHoursByCustomerId = async (customerId?: string) => {
     return hourEntry
 }
 export const getCountOfHoursEntry = async () => {
-    const { customers } = await getCustomers({})
+    const { customers } = await getCustomers()
 
     const HoursEntries = await Promise.all(
         customers.map(async (customer) => {
@@ -183,7 +183,7 @@ export const getCountOfHoursEntry = async () => {
 export const getCountOfHoursByInvoiceStatus = async (
     status: 'unbilled' | 'billed'
 ) => {
-    const { customers } = await getCustomers({})
+    const { customers } = await getCustomers()
 
     const hoursEntries = await Promise.all(
         customers.map(async (customer) => {
@@ -227,7 +227,7 @@ export const getCountOfHoursByInvoiceStatus = async (
 export const getAverageDurationByInvoiceStatus = async (
     status: 'unbilled' | 'billed'
 ) => {
-    const { customers } = await getCustomers({})
+    const { customers } = await getCustomers()
 
     const { totalHours, totalProjects } = await customers.reduce(
         async (accumulator, customer) => {
@@ -274,7 +274,7 @@ export const getAverageDurationByInvoiceStatus = async (
 }
 
 export const getTotalRevenue = async () => {
-    const { customers } = await getCustomers({})
+    const { customers } = await getCustomers()
 
     const totalRevenue = await Promise.all(
         customers.map(async (customer) => {
@@ -311,7 +311,7 @@ export const getTotalRevenue = async () => {
 }
 
 export const getTotalRevenueForCurrentYear = async () => {
-    const { customers } = await getCustomers({})
+    const { customers } = await getCustomers()
     const currentYear = new Date().getFullYear()
 
     const totalRevenueForCurrentYear = await Promise.all(
@@ -359,7 +359,7 @@ export const getTotalRevenueForCurrentYear = async () => {
 }
 
 export const getTotalRevenueForCurrentMonth = async () => {
-    const { customers } = await getCustomers({})
+    const { customers } = await getCustomers()
     const currentYear = new Date().getFullYear()
     const currentMonth = new Date().getMonth()
 

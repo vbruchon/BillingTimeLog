@@ -2,12 +2,12 @@ import { getRequiredAuthSession } from '../../../../src/lib/auth'
 import { prisma } from '../../../../src/lib/db/prisma'
 
 type PageProps = {
-    page?: number
+    page?: number | undefined
 }
 
-export const getCustomers = async ({ page }: PageProps) => {
+export const getCustomersByPage = async ({ page }: PageProps) => {
     const session = await getRequiredAuthSession()
-    const pageSize = 10
+    const pageSize = 5
 
     const totalCustomers = await prisma.customer.count()
     const customers = await prisma.customer.findMany({
@@ -25,6 +25,28 @@ export const getCustomers = async ({ page }: PageProps) => {
         },
         take: pageSize,
         skip: Math.max(0, (page ? page - 1 : 1) * pageSize),
+    })
+
+    return { customers, totalCustomers }
+}
+
+export const getCustomers = async () => {
+    const session = await getRequiredAuthSession()
+
+    const totalCustomers = await prisma.customer.count()
+    const customers = await prisma.customer.findMany({
+        where: {
+            userId: session.user.id,
+        },
+        select: {
+            id: true,
+            companyName: true,
+            email: true,
+            logo: true,
+        },
+        orderBy: {
+            createdAt: 'desc',
+        },
     })
 
     return { customers, totalCustomers }
