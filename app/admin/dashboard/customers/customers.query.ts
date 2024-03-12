@@ -7,7 +7,7 @@ type GetCustomersOptions = {
 
 export const getCustomers = async ({ page }: GetCustomersOptions = {}) => {
     const session = await getRequiredAuthSession()
-    const pageSize = 5
+    const pageSize = 6
 
     const totalCustomers = await prisma.customer.count()
     const customers = await prisma.customer.findMany({

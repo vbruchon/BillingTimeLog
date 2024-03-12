@@ -12,6 +12,9 @@ const ProjectsPage = async ({
     const page = Number(searchParams.page ?? 1)
 
     const { projects, totalProjects } = await getProjects({ page })
+
+    await new Promise((resolve) => setTimeout(resolve, 5000))
+
     return (
         <ListPage
             title="Projects Page"

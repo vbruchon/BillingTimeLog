@@ -19,7 +19,7 @@ const CustomersPage = async ({
             entryComponent={CustomerEntry}
             newLink="/admin/dashboard/customers/new"
             page={page}
-            totalPage={Math.ceil((totalCustomers ?? 0) / 5) + 1}
+            totalPage={Math.ceil((totalCustomers ?? 0) / 6) + 1}
             baseUrl="/admin/dashboard/customers"
         />
     )
