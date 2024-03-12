@@ -22,7 +22,9 @@ export const CustomerEntry = ({ item, index }: CustomerEntryProps) => {
         <TableRow key={item.companyName}>
             <TableCell className="font-medium">
                 <Avatar className=" size-16">
-                    <AvatarFallback>{item.logo[0]}</AvatarFallback>
+                    <AvatarFallback>
+                        {item.logo ? item.logo[0] : 'logo'}
+                    </AvatarFallback>
                     <AvatarImage
                         src={item.logo}
                         alt={`${item.companyName}'s logo`}

@@ -12,7 +12,6 @@ import { CustomerFormLogoElement } from './CustomerFormLogoElement'
 import { CustomerFormCompanyInfo } from './CustomerFormCompanyInfo'
 import { CustomerFormContactInfo } from './CustomerFormContactInfo'
 import { CustomerFormButton } from './CustomerFormButton'
-import { log } from 'console'
 
 export type CustomerFormProps = {
     defaultValue?: CustomerFormSchema & {
@@ -52,13 +51,14 @@ export const CustomerForm = ({ defaultValue }: CustomerFormProps) => {
                 } else {
                     const { data, serverError } =
                         await customerActionCreate(values)
+
                     if (data) {
                         console.log('success')
                         toast.success(data.message)
                         router.back()
+                        router.refresh()
                         return
                     }
-                    console.log('error')
 
                     toast.error('Some error occurred', {
                         description: serverError,
@@ -76,9 +76,3 @@ export const CustomerForm = ({ defaultValue }: CustomerFormProps) => {
         </Form>
     )
 }
-
-/* 
-
-            !!!!!! JE NE PEUX PAS CRÉER DE CUSTOMER RIEN NE SE PASSE !!!!!
-
-*/

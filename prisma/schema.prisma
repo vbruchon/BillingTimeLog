@@ -71,17 +71,17 @@ model VerificationToken {
 
 model Customer {
   id               String    @id @default(cuid())
-  logo             String
+  logo             String?
   companyName      String
   address          String
-  country          String
-  contactName      String
-  contactFirstName String
-  tel              String    @unique
-  email            String    @unique
+  country          String    @default("France")
+  contactName      String?
+  contactFirstName String?
+  tel              String?
+  email            String
   emailVerifiedAt  DateTime?
-  SIRET            String    @unique
-  VATNumber        String?   @unique
+  SIRET            String?
+  VATNumber        String?
   webSite          String?
   createdAt        DateTime  @default(now())
   updatedAt        DateTime? @updatedAt
