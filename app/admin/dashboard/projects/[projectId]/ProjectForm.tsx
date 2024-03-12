@@ -43,8 +43,6 @@ export const ProjectForm = ({ defaultValue, customers }: ProjectFormProps) => {
             form={form}
             className="flex flex-col items-center space-y-8 rounded-md p-4 shadow-md"
             onSubmit={async (values) => {
-                console.log(values)
-
                 const { data, serverError } = defaultValue
                     ? await projectActionEdit({
                           projectId: defaultValue.id,

@@ -27,6 +27,7 @@ export const CustomerFormContactInfo = ({ form }: any) => {
                                     <Input
                                         placeholder="0606070507"
                                         {...field}
+                                        value={field.value ?? ''}
                                     />
                                 </FormControl>
                                 <FormMessage />
@@ -43,6 +44,45 @@ export const CustomerFormContactInfo = ({ form }: any) => {
                                     <Input
                                         placeholder="example@email.fr"
                                         {...field}
+                                        value={field.value ?? ''}
+                                    />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        control={form.control}
+                        name="contactName"
+                        render={({ field }) => (
+                            <FormItem className="w-1/3">
+                                <FormLabel className="text-xl">
+                                    Contact Name
+                                </FormLabel>
+                                <FormControl>
+                                    <Input
+                                        placeholder="Dupont"
+                                        {...field}
+                                        value={field.value ?? ''}
+                                    />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        control={form.control}
+                        name="contactFirstName"
+                        render={({ field }) => (
+                            <FormItem className="w-1/3">
+                                <FormLabel className="text-xl">
+                                    Contact LastName
+                                </FormLabel>
+                                <FormControl>
+                                    <Input
+                                        placeholder="Jean"
+                                        {...field}
+                                        value={field.value ?? ''}
                                     />
                                 </FormControl>
                                 <FormMessage />

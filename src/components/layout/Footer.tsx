@@ -1,9 +1,16 @@
+'use client'
 import { Typography } from '@/components/ui/Typography'
 import { SiteConfig } from '@/lib/site-config'
 import Image from 'next/image'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
 export const Footer = () => {
+    const pathName = usePathname()
+    const isDashboardPath = pathName?.startsWith('/admin/dashboard')
+
+    if (isDashboardPath) return null
+
     return (
         <footer className="w-full border-t border-card">
             <div className="m-auto w-full max-w-3xl px-2 py-4">

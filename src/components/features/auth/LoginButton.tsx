@@ -24,7 +24,6 @@ export const LoginButton = () => {
             } else {
                 setIsCustomersPage(false)
             }
-            console.log(window.location.pathname)
         }
 
         window.addEventListener('popstate', handleChange)

@@ -3,33 +3,16 @@
 import LogOutButton from '@/components/features/auth/LogOutButton'
 import { Typography } from '@/components/ui/Typography'
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
-import {
-    Form,
-    FormControl,
-    FormField,
-    FormItem,
-    FormMessage,
-    useZodForm,
-} from '@/components/ui/form'
-import {
-    Building2,
-    MapPin,
-    Package,
-    FileText,
-    Clipboard,
-    Pencil,
-} from 'lucide-react'
+import { Form, useZodForm } from '@/components/ui/form'
+import { Building2, MapPin, Package, FileText, Clipboard } from 'lucide-react'
 import { UserInfoItem } from './userInfoItem'
 import { AccountFormSchema } from '../account.schema'
 import { EditableField } from './EditableField'
 import { EditableImageField } from './EditableImageField'
 import { userActionEdit } from '../user.action'
 import { useRouter } from 'next/navigation'
-import { CustomerFormButton } from '../../customers/[customerId]/_components/CustomerFormButton'
-import { Input } from '@/components/ui/input'
-import { cn } from '@/lib/utils'
-import { useEffect, useState } from 'react'
 import { Button } from '@/components/ui/button'
+import { toast } from 'sonner'
 
 export type AccountformProps = {
     user: AccountFormSchema
@@ -47,17 +30,17 @@ export const Accountform = ({ user }: AccountformProps) => {
                 form={form}
                 className="relative flex flex-col p-4"
                 onSubmit={async (values) => {
-                    console.log(values)
-
                     const { data, serverError } = await userActionEdit({
                         data: values,
                     })
                     if (data) {
-                        console.log('user updated')
+                        toast.success(data.message)
                         router.refresh()
                         return
                     }
-                    console.log('error :', serverError)
+                    toast.error('Some error occurred', {
+                        description: serverError,
+                    })
                     return
                 }}
             >

@@ -34,7 +34,6 @@ export const HourEntryForm = ({
     const router = useRouter()
 
     const handleSubmit = async (values: HourEntryFormSchema) => {
-        console.log(values)
         const { data, serverError } = defaultValue
             ? await hourEntryActionEdit({
                   hourEntryId: defaultValue.id,

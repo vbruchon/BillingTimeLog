@@ -3,7 +3,11 @@ import { getCustomers } from '../customers/customers.query'
 import { ProjectStatus } from '@prisma/client'
 import { pages } from 'next/dist/build/templates/app-page'
 
-export const getProjects = async ({ page }: { page: number }) => {
+type GetProjectsOptions = {
+    page?: number
+}
+
+export const getProjects = async ({ page }: GetProjectsOptions = {}) => {
     const pageSize = 10
 
     const totalProjects = await prisma.project.count()
@@ -33,16 +37,14 @@ export const getProjects = async ({ page }: { page: number }) => {
             createdAt: 'desc',
         },
         take: pageSize,
-        skip: Math.max(0, (page - 1) * pageSize),
+        skip: Math.max(0, (page ?? 1) - 1 * pageSize),
     })
 
-    const projectsWithCounts = projects.map((project) => {
-        return {
-            ...project,
-            totalHours: project.hours.length,
-            totalInvoices: project.Invoice.length,
-        }
-    })
+    const projectsWithCounts = projects.map((project) => ({
+        ...project,
+        totalHours: project.hours.length,
+        totalInvoices: project.Invoice.length,
+    }))
 
     return { projectsWithCounts, totalProjects, projects }
 }

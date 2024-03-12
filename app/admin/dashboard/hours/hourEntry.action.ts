@@ -38,7 +38,7 @@ export const hourEntryActionEdit = authentifiedAction(
                 rate: Number(props.data.rate),
             },
         })
-        return { message: 'Customer update successfully !', updatedHourEntry }
+        return { message: 'Hour update successfully !', updatedHourEntry }
     }
 )
 
@@ -52,6 +52,6 @@ export const hourEntryActionCreate = authentifiedAction(
                 rate: Number(props.rate),
             },
         })
-        return { message: 'Customer created successfully!', newHourEntry }
+        return { message: 'Hour created successfully!', newHourEntry }
     }
 )

@@ -1,7 +1,7 @@
 import { TableHead, TableRow } from '@/components/ui/table'
 import { CustomerEntry } from './CustomerEntry'
-import { getCustomersByPage } from './customers.query'
 import ListPage from '@/components/layout/dashboard/ListPage'
+import { getCustomers } from './customers.query'
 
 const CustomersPage = async ({
     searchParams,
@@ -9,7 +9,7 @@ const CustomersPage = async ({
     searchParams: { [key: string]: string | string[] | undefined }
 }) => {
     const page = Number(searchParams.page ?? 1)
-    const { customers, totalCustomers } = await getCustomersByPage({ page })
+    const { customers, totalCustomers } = await getCustomers({ page })
 
     return (
         <ListPage

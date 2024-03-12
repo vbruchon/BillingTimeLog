@@ -4,7 +4,7 @@ import { HourEntryForm } from '../[hourEntryId]/HourEntryForm'
 import { getProjects } from '../../projects/projects.query'
 
 export default async function HourEntryPage() {
-    const projects = await getProjects()
+    const { projects } = await getProjects()
 
     return (
         <>

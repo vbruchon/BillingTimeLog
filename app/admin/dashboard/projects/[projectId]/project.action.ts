@@ -44,7 +44,6 @@ export const changeProjectStatus = async (projectId: string) => {
         revalidatePath('/admin/dashboard/projects')
         return projectUpdated
     } else {
-        console.log('project not found')
         return { message: 'The project was not found' }
     }
 }
@@ -63,7 +62,6 @@ export const projectActionEdit = authentifiedAction(
             },
             data: props.data,
         })
-        console.log('updated succesfully')
 
         return { message: 'Project update successfully !', updatedProject }
     }

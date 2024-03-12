@@ -45,9 +45,3 @@ export const UserInfoItem = ({
         </div>
     )
 }
-
-/* <span>
-                {label && <>{label} :</>}
-                {value}
-                {secondValue && <>, {secondValue}</>}
-            </span> */

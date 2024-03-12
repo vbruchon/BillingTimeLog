@@ -24,7 +24,11 @@ export const CustomerFormCompanyInfo = ({ form }: any) => {
                                     Company name
                                 </FormLabel>
                                 <FormControl>
-                                    <Input placeholder="VBCODE" {...field} />
+                                    <Input
+                                        placeholder="VBCODE"
+                                        {...field}
+                                        value={field.value ?? ''}
+                                    />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -43,6 +47,7 @@ export const CustomerFormCompanyInfo = ({ form }: any) => {
                                     <Input
                                         placeholder="8526541500036"
                                         {...field}
+                                        value={field.value ?? ''}
                                     />
                                 </FormControl>
                                 <FormMessage />
@@ -87,6 +92,7 @@ export const CustomerFormCompanyInfo = ({ form }: any) => {
                                     <Input
                                         placeholder="18 rue Mozart"
                                         {...field}
+                                        value={field.value ?? ''}
                                     />
                                 </FormControl>
                                 <FormMessage />

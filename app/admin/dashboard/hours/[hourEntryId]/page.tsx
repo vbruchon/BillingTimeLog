@@ -15,7 +15,7 @@ export default async function HourEntryPage({
         duration: hourEntry.duration.toString(),
         rate: hourEntry.rate.toString(),
     }
-    const projects = await getProjects()
+    const { projects } = await getProjects()
 
     return (
         <>

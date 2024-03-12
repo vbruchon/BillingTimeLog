@@ -47,6 +47,7 @@ export const CustomerFormLogoElement = ({
                                         field.onChange(e)
                                         setUrlLogo(e.target.value)
                                     }}
+                                    value={field.value ?? ''}
                                 />
                             </FormControl>
                             <FormMessage />
