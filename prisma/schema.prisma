@@ -41,10 +41,12 @@ model Session {
 
 model User {
   id            String     @id @default(cuid())
-  name          String
+  name          String?
   companyName   String?
   address       String?
-  country       String?
+  zipCode       String?
+  city          String?
+  country       String?    @default("France")
   tel           String?    @unique
   email         String     @unique
   emailVerified DateTime?

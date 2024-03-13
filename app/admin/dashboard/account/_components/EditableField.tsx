@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import {
     FormControl,
     FormField,
@@ -18,6 +18,8 @@ export type EditableFieldProps = {
         | 'email'
         | 'companyName'
         | 'address'
+        | 'zipCode'
+        | 'city'
         | 'country'
         | 'tel'
         | 'SIRET'
@@ -26,10 +28,12 @@ export type EditableFieldProps = {
     form: UseFormReturn<
         {
             image: string | null
-            name: string
+            name: string | null
             email: string
             companyName: string | null
             address: string | null
+            zipCode: string | null
+            city: string | null
             country: string | null
             tel: string | null
             SIRET: string | null
@@ -52,22 +56,32 @@ export const EditableField: React.FC<EditableFieldProps> = ({
 }) => {
     const [isHover, setisHover] = useState(false)
     const [isEditing, setEditing] = useState(false)
+    const divRef = useRef(null)
+    const [pencilPosition, setPencilPosition] = useState(null)
 
     useEffect(() => {
         setEditing(false)
     }, [initialValue])
 
+    useEffect(() => {
+        if (divRef.current) {
+            //@ts-ignore
+            const { width } = divRef.current.getBoundingClientRect()
+            setPencilPosition(width + 20)
+        }
+    }, [])
+
     const startEditing = () => setEditing(true)
 
-    return isEditing ? (
+    return isEditing || !initialValue ? (
         <FormField
             control={form.control}
             name={fieldName}
             render={({ field }) => (
-                <FormItem className="mt-2 text-center">
+                <FormItem className="text-center">
                     <FormControl>
                         <Input
-                            className="text-center text-lg"
+                            className={cn('text-center text-base', className)}
                             {...field}
                             type="text"
                             placeholder={`Enter ${fieldName}`}
@@ -82,17 +96,21 @@ export const EditableField: React.FC<EditableFieldProps> = ({
     ) : (
         <div className={cn('relative flex items-center gap-4', className)}>
             <div
-                className={cn(
-                    'mx-auto text-xl hover:cursor-pointer',
-                    textClassName
-                )}
+                className={cn('hover:cursor-pointer', textClassName)}
+                ref={divRef}
                 onClick={startEditing}
                 onMouseEnter={() => setisHover(true)}
                 onMouseOut={() => setisHover(false)}
             >
                 {initialValue}
             </div>
-            {isHover && <Pencil size={20} className="absolute right-0" />}
+            {isHover && pencilPosition && (
+                <Pencil
+                    size={20}
+                    className="absolute"
+                    style={{ left: `${pencilPosition}px` }}
+                />
+            )}
         </div>
     )
 }

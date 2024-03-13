@@ -14,13 +14,11 @@ import { EditableFieldProps } from './EditableField'
 type EditableImageElementProps = {
     form: EditableFieldProps['form']
     fieldName: EditableFieldProps['fieldName']
-    size?: string
 }
 
 export const EditableImageField = ({
     form,
     fieldName,
-    size = '40',
 }: EditableImageElementProps) => {
     const [isHovered, setIsHovered] = useState(false)
     const [isEditing, setEditing] = useState(false)
@@ -38,7 +36,7 @@ export const EditableImageField = ({
                 >
                     <Avatar
                         onClick={() => setEditing((prev) => !prev)}
-                        className={`size-${size} overflow-hidden rounded-full hover:cursor-pointer`}
+                        className={`absolute left-auto top-[-70px] size-40 overflow-hidden rounded-full hover:cursor-pointer`}
                     >
                         <AvatarFallback>Profile image</AvatarFallback>
                         <AvatarImage
@@ -53,7 +51,7 @@ export const EditableImageField = ({
                     </Avatar>
 
                     {isEditing && (
-                        <FormItem className="mt-2 w-[150%] text-center">
+                        <FormItem className="mb-[-25%] mt-16 w-[180%] text-center">
                             <FormControl>
                                 <Input
                                     {...field}
