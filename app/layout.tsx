@@ -33,12 +33,10 @@ export default function RootLayout({
             >
                 <Providers>
                     <div className="relative flex min-h-screen flex-col">
-                        <Header />
                         <div className="flex-1">
                             {children}
                             {modal}
                         </div>
-                        <Footer />
                     </div>
                     <TailwindIndicator />
                 </Providers>
