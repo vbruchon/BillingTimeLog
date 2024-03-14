@@ -67,6 +67,7 @@ export type ProjectWithHours = {
     project: {
         id: string
         name: string
+        status: string
     }
     hours: hourEntryType[]
 }
@@ -95,12 +96,16 @@ export const getProjectsAndHoursByCustomerId = async (
                     status: true,
                     projectId: true,
                 },
+                orderBy: {
+                    date: 'desc',
+                },
             })
 
             projectsWithHours.push({
                 project: {
                     id: project.id,
                     name: project.name,
+                    status: project.status,
                 },
                 hours: hours,
             })

@@ -1,11 +1,12 @@
 'use client'
-
 import { Card, CardContent, CardTitle } from '@/components/ui/card'
 import { Fragment, useState } from 'react'
 import { ProjectWithHours } from '../../../admin/dashboard/hours/hourEntry.query'
 import { ProjectSelector } from './ProjectSelector'
 import { HourTable } from './HourTable'
 import { Typography } from '@/components/ui/Typography'
+import { Badge } from '@/components/ui/badge'
+import { cn } from '@/lib/utils'
 
 type ProjectHoursViewerProps = {
     projectswithHours: ProjectWithHours[]
@@ -29,16 +30,37 @@ export const ProjectHoursViewer = ({
     const projectName =
         projectswithHours.find((data) => data.project.id === selectedProject)
             ?.project.name || ''
+
+    const projectStatus =
+        projectswithHours.find((data) => data.project.id === selectedProject)
+            ?.project.status || ''
+
     return (
         <>
-            <Typography variant={'h2'} className="mx-auto max-w-sm text-center">
-                Hours of {projectName}
-            </Typography>
+            <div className="flex items-center justify-center gap-8">
+                <Typography variant={'h2'} className="text-center">
+                    Projet {projectName}
+                </Typography>
+                <Badge
+                    variant={'outline'}
+                    className={cn(
+                        ' w-20 border-green-600 text-center text-sm text-green-600',
+                        {
+                            'border-orange-600 text-orange-600':
+                                projectStatus === 'in_progress',
+                        }
+                    )}
+                >
+                    {projectStatus === 'in_progress' ? 'En cours' : 'Terminé'}
+                </Badge>
+            </div>
             <div className="mt-8 flex flex-col gap-y-8">
-                <ProjectSelector
-                    projectswithHours={projectswithHours}
-                    onProjectChange={handleChange}
-                />
+                {projectswithHours.length > 1 && (
+                    <ProjectSelector
+                        projectswithHours={projectswithHours}
+                        onProjectChange={handleChange}
+                    />
+                )}
                 <Card className="bg-primary-foreground">
                     <CardContent>
                         <HourTable

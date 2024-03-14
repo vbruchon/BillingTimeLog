@@ -26,6 +26,7 @@ export default function RootLayout({
         <html lang="en" className="h-full" suppressHydrationWarning>
             <head />
             <body
+                cz-shortcut-listen="true"
                 className={cn(
                     'h-full bg-background font-sans antialiased',
                     fontSans.variable

@@ -20,23 +20,30 @@ export const HourTable = ({
 }: HourTableProps) => {
     return (
         <Table className="w-full border-collapse">
-            <TableCaption className="my-2 text-center text-lg font-semibold">
-                List of Hours realized on {projectName}
+            <TableCaption className="my-2 text-center text-lg font-semibold text-gray-300">
+                List des heures réalisé pour {projectName}
             </TableCaption>
             <TableHeader>
                 <TableRow className="text-center text-lg">
-                    <TableHead>ID</TableHead>
-                    <TableHead>Date</TableHead>
-                    <TableHead>Reason</TableHead>
-                    <TableHead>Duration</TableHead>
-                    <TableHead>Rate</TableHead>
-                    <TableHead>Total</TableHead>
-                    <TableHead className="text-center">Status</TableHead>
+                    <TableHead className="text-white">Date</TableHead>
+                    <TableHead className="text-white">Motif</TableHead>
+                    <TableHead className="text-center text-white">
+                        Durée
+                    </TableHead>
+                    <TableHead className="text-center text-white">
+                        Tarif
+                    </TableHead>
+                    <TableHead className="text-center text-white">
+                        Total
+                    </TableHead>
+                    <TableHead className="text-center text-white">
+                        Status
+                    </TableHead>
                 </TableRow>
             </TableHeader>
             <TableBody>
                 {selectedProjectHours.map((hour, index) => (
-                    <HourItem index={index} hour={hour} key={index} />
+                    <HourItem hour={hour} key={index} />
                 ))}
             </TableBody>
         </Table>

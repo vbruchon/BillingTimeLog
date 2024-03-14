@@ -28,7 +28,7 @@ export const ProjectSelector = ({
 
     return (
         <Select onValueChange={(value) => handleChange(value)}>
-            <SelectTrigger className="w-[180px] bg-primary-foreground">
+            <SelectTrigger className="w-1/5 bg-primary-foreground text-lg">
                 <SelectValue placeholder={projectswithHours[0].project.name} />
             </SelectTrigger>
             <SelectContent>

@@ -4,28 +4,39 @@ import { Badge } from '@/components/ui/badge'
 
 type HourItemProps = {
     hour: hourEntryType
-    index: number
 }
 
-export const HourItem = ({ hour, index }: HourItemProps) => {
+export const HourItem = ({ hour }: HourItemProps) => {
     const statusStyle =
-        hour.invoiceStatus === 'Overdue'
-            ? 'border-red-600 text-red-600'
-            : hour.invoiceStatus === 'Pending'
-              ? 'border-orange-600 text-orange-600'
-              : 'border-green-600 text-green-600'
+        hour.status === 'unbilled'
+            ? 'border-gray-400 text-gray-300'
+            : 'border-green-600 text-green-600'
+    const amount = hour.duration * hour.rate
+
+    function formatDate(date: string) {
+        const newDate = new Date(date)
+        const day = newDate.getDate()
+        const month = newDate.toLocaleString('default', { month: 'short' })
+        const year = newDate.getFullYear()
+
+        return `${day} ${month} ${year}`
+    }
 
     return (
-        <TableRow className="text-base">
-            <TableCell className="font-medium">{index + 1}</TableCell>
-            <TableCell>{hour.date.toLocaleDateString()}</TableCell>
+        <TableRow className="text-base text-white">
+            <TableCell>{formatDate(hour.date.toDateString())}</TableCell>
             <TableCell>{hour.reason}</TableCell>
-            <TableCell>{hour.duration}</TableCell>
-            <TableCell>{hour.rate}</TableCell>
-            <TableCell>{hour.duration * hour.rate}</TableCell>
+            <TableCell className="text-center">{hour.duration}</TableCell>
             <TableCell className="text-center">
-                <Badge variant={'outline'} className={`text-sm ${statusStyle}`}>
-                    {hour.invoiceStatus}
+                {hour.rate.toFixed(2)}
+            </TableCell>
+            <TableCell className="text-center">{amount.toFixed(2)}</TableCell>
+            <TableCell className="text-center">
+                <Badge
+                    variant={'outline'}
+                    className={` border-2 text-sm ${statusStyle}`}
+                >
+                    {hour.status === 'unbilled' ? 'Non facturé' : 'Facturé'}
                 </Badge>
             </TableCell>
         </TableRow>

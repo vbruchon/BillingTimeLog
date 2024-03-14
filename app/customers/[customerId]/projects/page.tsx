@@ -21,7 +21,10 @@ async function CustomerProjectsPage({
     return (
         <Layout>
             <LayoutHeader>
-                <LayoutTitle>Hi {customer?.name}</LayoutTitle>
+                <LayoutTitle>
+                    Bonjour {customer?.companyName}{' '}
+                    <span className="ml-4">👋</span>{' '}
+                </LayoutTitle>
             </LayoutHeader>
             <LayoutContent>
                 <ProjectHoursViewer projectswithHours={projectswithHours} />
