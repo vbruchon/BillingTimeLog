@@ -25,10 +25,10 @@ export const HourEntry = ({ item, index }: HourEntryProps) => {
     let statusStyle = ''
     switch (item.status) {
         case 'unbilled':
-            statusStyle = 'border-gray-600 text-gray-600'
+            statusStyle = 'border-muted-foreground text-muted-foreground'
             break
         case 'billed':
-            statusStyle = 'border-green-600 text-green-600'
+            statusStyle = 'border-success text-success'
             break
     }
     const date = `${item.date.getDate().toString().padStart(2, '0')}/

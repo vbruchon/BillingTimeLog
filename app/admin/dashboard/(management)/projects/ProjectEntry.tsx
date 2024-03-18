@@ -29,7 +29,7 @@ export const ProjectEntry = ({ item, index }: ProjectEntryProps) => {
             statusStyle = 'border-orange-600 text-orange-600'
             break
         case 'completed':
-            statusStyle = 'border-green-600 text-green-600'
+            statusStyle = 'border-success text-success'
             break
     }
     const status = item.status === 'in_progress' ? 'in progress' : 'completed'

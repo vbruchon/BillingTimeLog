@@ -1,7 +1,7 @@
 'use client'
 import { Card, CardContent, CardTitle } from '@/components/ui/card'
 import { Fragment, useState } from 'react'
-import { ProjectWithHours } from '../../../admin/dashboard/hours/hourEntry.query'
+import { ProjectWithHours } from '../../../admin/dashboard/(management)/hours/hourEntry.query'
 import { ProjectSelector } from './ProjectSelector'
 import { HourTable } from './HourTable'
 import { Typography } from '@/components/ui/Typography'
@@ -44,7 +44,7 @@ export const ProjectHoursViewer = ({
                 <Badge
                     variant={'outline'}
                     className={cn(
-                        ' w-20 border-green-600 text-center text-sm text-green-600',
+                        ' border-success text-success w-20 text-center text-sm',
                         {
                             'border-orange-600 text-orange-600':
                                 projectStatus === 'in_progress',
@@ -61,7 +61,7 @@ export const ProjectHoursViewer = ({
                         onProjectChange={handleChange}
                     />
                 )}
-                <Card className="bg-primary-foreground">
+                <Card className="bg-card">
                     <CardContent>
                         <HourTable
                             selectedProjectHours={selectedProjectHours}

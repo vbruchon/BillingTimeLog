@@ -32,7 +32,7 @@ const LayoutDashboard = async ({ children }: PropsWithChildren) => {
     return (
         <div className="flex h-screen">
             <SideBar links={links} user={user} />
-            <div className="mx-4 mt-4 flex-1 overflow-auto rounded-lg bg-primary-foreground p-4">
+            <div className="mx-4 mt-4 flex-1 overflow-hidden  rounded-lg p-4">
                 {children}
             </div>
         </div>

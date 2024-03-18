@@ -7,7 +7,7 @@ export type CardStatsProps = {
     indicator: string
     percentage?: boolean
     plusSign?: boolean
-    percentageValue?: number
+    percentageValue?: string
     className?: string
 }
 
@@ -33,7 +33,7 @@ export const CardStats = ({
             <div className={cn(className, 'p-6 text-sm uppercase')}>
                 {indicator}
             </div>
-            {plusSign && <p className="text-green-600">+{percentageValue}%</p>}
+            {plusSign && <p className="text-success">+{percentageValue}%</p>}
         </Card>
     )
 }

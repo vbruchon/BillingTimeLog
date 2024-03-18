@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { ProjectWithHours } from '../../../admin/dashboard/hours/hourEntry.query'
+import { ProjectWithHours } from '../../../admin/dashboard/(management)/hours/hourEntry.query'
 import {
     Select,
     SelectContent,

@@ -21,7 +21,7 @@ export const UserInfoItem = ({
         <div className="flex items-center gap-2">
             <div className="flex w-1/3 items-center gap-2">
                 {icon}
-                <span>{label && <>{label} :</>}</span>
+                <span>{label && <>{label}</>}</span>
             </div>
             <EditableField
                 initialValue={value}

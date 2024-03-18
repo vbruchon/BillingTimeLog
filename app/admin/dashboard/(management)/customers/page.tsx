@@ -1,7 +1,7 @@
 import { TableHead, TableRow } from '@/components/ui/table'
 import { CustomerEntry } from './CustomerEntry'
-import ListPage from '@/components/layout/dashboard/ListPage'
 import { getCustomers } from './customers.query'
+import DisplayDataInTable from '@/components/layout/dashboard/DisplayDataInTable'
 
 const CustomersPage = async ({
     searchParams,
@@ -12,12 +12,10 @@ const CustomersPage = async ({
     const { customers, totalCustomers } = await getCustomers({ page })
 
     return (
-        <ListPage
-            title="Customers Page"
+        <DisplayDataInTable
             data={customers}
             tableHeaderComponent={CustomerTableHeader}
             entryComponent={CustomerEntry}
-            newLink="/admin/dashboard/customers/new"
             page={page}
             totalPage={Math.ceil((totalCustomers ?? 0) / 6) + 1}
             baseUrl="/admin/dashboard/customers"

@@ -38,7 +38,7 @@ export const Accountform = ({ user }: AccountformProps) => {
     }
 
     return (
-        <Card className="m-auto mt-4 max-w-lg">
+        <Card className="m-auto max-w-lg">
             <Form
                 form={form}
                 className="relative flex flex-col p-4"

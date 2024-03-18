@@ -1,8 +1,7 @@
-import ListPage from '@/components/layout/dashboard/ListPage'
 import { getProjects } from './projects.query'
 import { ProjectEntry } from './ProjectEntry'
 import { TableHead, TableRow } from '@/components/ui/table'
-import { Table } from 'lucide-react'
+import DisplayDataInTable from '@/components/layout/dashboard/DisplayDataInTable'
 
 const ProjectsPage = async ({
     searchParams,
@@ -11,17 +10,15 @@ const ProjectsPage = async ({
 }) => {
     const page = Number(searchParams.page ?? 1)
 
-    const { projects, totalProjects } = await getProjects({ page })
-
-    await new Promise((resolve) => setTimeout(resolve, 5000))
+    const { projects, totalProjects, projectsWithCounts } = await getProjects({
+        page,
+    })
 
     return (
-        <ListPage
-            title="Projects Page"
-            data={projects}
+        <DisplayDataInTable
+            data={projectsWithCounts}
             tableHeaderComponent={ProjectTableHeader}
             entryComponent={ProjectEntry}
-            newLink="/admin/dashboard/projects/new"
             page={page}
             totalPage={Math.ceil((totalProjects ?? 0) / 10) + 1}
             baseUrl="/admin/dashboard/projects"

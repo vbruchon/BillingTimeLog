@@ -1,7 +1,7 @@
-import ListPage from '@/components/layout/dashboard/ListPage'
 import { getHours } from './hourEntry.query'
 import { HourEntry } from './HourEntry'
 import { TableHead, TableRow } from '@/components/ui/table'
+import DisplayDataInTable from '@/components/layout/dashboard/DisplayDataInTable'
 
 const HoursPage = async ({
     searchParams,
@@ -18,12 +18,10 @@ const HoursPage = async ({
     })
 
     return (
-        <ListPage
-            title="Hours Page"
+        <DisplayDataInTable
             data={hours}
             tableHeaderComponent={HoursTableHeader}
             entryComponent={HourEntry}
-            newLink="/admin/dashboard/hours/new"
             page={page}
             totalPage={Math.ceil((totalHours ?? 0) / 10) + 1}
             baseUrl="/admin/dashboard/hours"

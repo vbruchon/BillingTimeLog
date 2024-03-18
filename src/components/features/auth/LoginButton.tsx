@@ -9,7 +9,8 @@ import { useEffect, useState } from 'react'
 
 export const LoginButton = () => {
     const mutation = useMutation({
-        mutationFn: async () => signIn('github'),
+        mutationFn: async () =>
+            signIn('github', { callbackUrl: '/admin/dashboard' }),
     })
     const [isCustomersPage, setIsCustomersPage] = useState(false)
 

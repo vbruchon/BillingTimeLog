@@ -20,7 +20,7 @@ export const ChangeStatusButton = ({ id, status }: ChangeStatusButtonProps) => {
                             status === 'completed',
                     },
                     {
-                        'bg-green-600 hover:bg-green-800':
+                        'bg-success hover:bg-green-800':
                             status === 'in_progress',
                     }
                 )}

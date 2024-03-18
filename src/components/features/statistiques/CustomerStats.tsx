@@ -1,11 +1,9 @@
-import { Card } from '@/components/ui/card'
 import { UserPlus, Users } from 'lucide-react'
 import {
     getCountNewCustomers,
     getCountofCustomers,
 } from '../../../../app/admin/dashboard/(management)/customers/customers.query'
 import { CardStats } from '@/components/features/statistiques/CardStats'
-import { Typography } from '@/components/ui/Typography'
 
 export type CustomerStatsProps = {
     userId: string
@@ -23,12 +21,12 @@ export const CustomerStats = async ({ userId }: CustomerStatsProps) => {
                 indicator="Total Customers"
             />
             <CardStats
-                icon={<UserPlus color="#43b812" />}
+                icon={<UserPlus className="text-success" />}
                 value={currentYearNewCustomers}
                 indicator="New Customers by last year"
                 plusSign={true}
-                percentageValue={percentageNewCustomers}
-                className="text-[#43b812]"
+                percentageValue={percentageNewCustomers.toFixed(0)}
+                className="text-success"
             />
         </div>
     )

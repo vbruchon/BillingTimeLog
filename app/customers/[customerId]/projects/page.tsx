@@ -4,8 +4,8 @@ import {
     LayoutHeader,
     LayoutTitle,
 } from '@/components/layout/Layout'
-import { getCustomerById } from '../../../admin/dashboard/customers/customers.query'
-import { getProjectsAndHoursByCustomerId } from '../../../admin/dashboard/hours/hourEntry.query'
+import { getCustomerById } from '../../../admin/dashboard/(management)/customers/customers.query'
+import { getProjectsAndHoursByCustomerId } from '../../../admin/dashboard/(management)/hours/hourEntry.query'
 import { ProjectHoursViewer } from './ProjectHoursViewer'
 
 async function CustomerProjectsPage({
@@ -22,8 +22,8 @@ async function CustomerProjectsPage({
         <Layout>
             <LayoutHeader>
                 <LayoutTitle>
-                    Bonjour {customer?.companyName}{' '}
-                    <span className="ml-4">👋</span>{' '}
+                    Bonjour {customer?.companyName}
+                    <span className="ml-4">👋</span>
                 </LayoutTitle>
             </LayoutHeader>
             <LayoutContent>

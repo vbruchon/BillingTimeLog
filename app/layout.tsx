@@ -6,8 +6,6 @@ import './globals.css'
 import { TailwindIndicator } from '@/components/features/utils/TailwindIndicator'
 import { Providers } from './Provider'
 import { SiteConfig } from '@/lib/site-config'
-import { Footer } from '@/components/layout/Footer'
-import { Header } from '@/components/layout/Header'
 
 const fontSans = Inter({ subsets: ['latin'], variable: '--font-sans' })
 
@@ -28,7 +26,7 @@ export default function RootLayout({
             <body
                 cz-shortcut-listen="true"
                 className={cn(
-                    'h-full bg-background font-sans antialiased',
+                    'min-h-screen font-sans antialiased',
                     fontSans.variable
                 )}
             >

@@ -7,7 +7,7 @@ import {
     TableRow,
 } from '@/components/ui/table'
 import { HourItem } from './HourItem'
-import { hourEntryType } from '../../../admin/dashboard/hours/hourEntry.query'
+import { hourEntryType } from '../../../admin/dashboard/(management)/hours/hourEntry.query'
 
 type HourTableProps = {
     selectedProjectHours: hourEntryType[]
@@ -20,23 +20,20 @@ export const HourTable = ({
 }: HourTableProps) => {
     return (
         <Table className="w-full border-collapse">
-            <TableCaption className="my-2 text-center text-lg font-semibold text-gray-300">
-                List des heures réalisé pour {projectName}
-            </TableCaption>
             <TableHeader>
                 <TableRow className="text-center text-lg">
-                    <TableHead className="text-white">Date</TableHead>
-                    <TableHead className="text-white">Motif</TableHead>
-                    <TableHead className="text-center text-white">
+                    <TableHead className="text-foreground">Date</TableHead>
+                    <TableHead className="text-foreground">Motif</TableHead>
+                    <TableHead className="text-center text-foreground">
                         Durée
                     </TableHead>
-                    <TableHead className="text-center text-white">
+                    <TableHead className="text-center text-foreground">
                         Tarif
                     </TableHead>
-                    <TableHead className="text-center text-white">
+                    <TableHead className="text-center text-foreground">
                         Total
                     </TableHead>
-                    <TableHead className="text-center text-white">
+                    <TableHead className="text-center text-foreground">
                         Status
                     </TableHead>
                 </TableRow>

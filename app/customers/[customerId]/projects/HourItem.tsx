@@ -1,6 +1,6 @@
 import { TableCell, TableRow } from '@/components/ui/table'
-import { hourEntryType } from '../../../admin/dashboard/hours/hourEntry.query'
 import { Badge } from '@/components/ui/badge'
+import { hourEntryType } from '../../../admin/dashboard/(management)/hours/hourEntry.query'
 
 type HourItemProps = {
     hour: hourEntryType
@@ -9,8 +9,8 @@ type HourItemProps = {
 export const HourItem = ({ hour }: HourItemProps) => {
     const statusStyle =
         hour.status === 'unbilled'
-            ? 'border-gray-400 text-gray-300'
-            : 'border-green-600 text-green-600'
+            ? 'border-muted-foreground text-muted-foreground'
+            : 'border-success text-success'
     const amount = hour.duration * hour.rate
 
     function formatDate(date: string) {
@@ -23,7 +23,7 @@ export const HourItem = ({ hour }: HourItemProps) => {
     }
 
     return (
-        <TableRow className="text-base text-white">
+        <TableRow className="text-base text-foreground">
             <TableCell>{formatDate(hour.date.toDateString())}</TableCell>
             <TableCell>{hour.reason}</TableCell>
             <TableCell className="text-center">{hour.duration}</TableCell>

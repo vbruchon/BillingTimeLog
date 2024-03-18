@@ -40,7 +40,7 @@ export const CustomerEntry = ({ item, index }: CustomerEntryProps) => {
                 </Link>
             </TableCell>
             <TableCell>{item.email}</TableCell>
-            <TableCell className="flex items-center justify-end gap-x-4">
+            <TableCell className="mt-3 flex justify-end">
                 <ActionButton
                     id={item.id}
                     element="customer"

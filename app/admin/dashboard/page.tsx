@@ -10,15 +10,17 @@ import { CustomerStats } from '../../../src/components/features/statistiques/Cus
 import { ProjectStats } from '../../../src/components/features/statistiques/ProjectsStats'
 import { HoursStats } from '../../../src/components/features/statistiques/HoursStats'
 import { RevenueStats } from '../../../src/components/features/statistiques/RevenueStats'
+import { getUser } from './account/user.query'
 
 async function DashboardPage() {
     const session = await getRequiredAuthSession()
-
+    const user = await getUser(session.user.id)
     return (
         <Layout>
             <LayoutHeader>
                 <LayoutTitle>
-                    Welcome in your dashboard, {session.user.name}
+                    Bonjour {user.companyName}
+                    <span className="ml-4">👋</span>
                 </LayoutTitle>
             </LayoutHeader>
             <LayoutContent className="flex flex-col flex-wrap gap-6">

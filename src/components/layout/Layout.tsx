@@ -7,7 +7,7 @@ export const Layout = (props: ComponentPropsWithoutRef<'div'>) => {
         <div
             {...props}
             className={cn(
-                'm-[5%] mt-[3%] flex flex-wrap gap-4 px-4',
+                'm-[5%] mt-[2%] flex flex-wrap gap-4 px-4',
                 props.className
             )}
         />
@@ -43,5 +43,5 @@ export const LayoutActions = (props: ComponentPropsWithoutRef<'div'>) => {
 }
 
 export const LayoutContent = (props: ComponentPropsWithoutRef<'div'>) => {
-    return <div {...props} className={cn('w-full', props.className)} />
+    return <div {...props} className={cn(' m-[3%] w-full', props.className)} />
 }

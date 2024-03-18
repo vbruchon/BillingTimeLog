@@ -13,62 +13,54 @@ import { Skeleton } from '@/components/ui/skeleton'
 
 function ProjectsLoadingPage() {
     return (
-        <div className="container mx-auto p-8">
-            <div className="mb-8 flex items-center justify-between rounded-lg bg-gray-800 p-4">
-                <Typography variant={'h1'}>Projects Page</Typography>
-                <Skeleton className=" h-14 w-[10%]" />
-            </div>
-            <Card className="bg-primary-foreground">
-                <CardContent>
-                    <Table>
-                        <TableCaption>A list of your Customers.</TableCaption>
-                        <TableHeader>
-                            <TableRow className="text-lg">
-                                <TableHead>ID</TableHead>
-                                <TableHead>Project Name</TableHead>
-                                <TableHead>Customer</TableHead>
-                                <TableHead>Total Hours</TableHead>
-                                <TableHead>Total Invoice</TableHead>
-                                <TableHead className="text-center">
-                                    Status
-                                </TableHead>
-                                <TableHead className="text-right">
-                                    Action
-                                </TableHead>
+        <Card className="bg-primary-foreground">
+            <CardContent>
+                <Table>
+                    <TableCaption>A list of your Customers.</TableCaption>
+                    <TableHeader>
+                        <TableRow className="text-lg">
+                            <TableHead>ID</TableHead>
+                            <TableHead>Project Name</TableHead>
+                            <TableHead>Customer</TableHead>
+                            <TableHead>Total Hours</TableHead>
+                            <TableHead>Total Invoice</TableHead>
+                            <TableHead className="text-center">
+                                Status
+                            </TableHead>
+                            <TableHead className="text-right">Action</TableHead>
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody className="text-base">
+                        {Array.from({ length: 6 }).map((_, index) => (
+                            <TableRow>
+                                <TableCell className="w-[5%] font-medium">
+                                    <Skeleton className=" h-11 w-6" />
+                                </TableCell>
+                                <TableCell className=" w-[20%] font-medium">
+                                    <Skeleton className="h-9 w-7/12" />
+                                </TableCell>
+                                <TableCell className="w-[30%] font-medium">
+                                    <Skeleton className="h-9 w-9/12" />
+                                </TableCell>
+                                <TableCell className="w-[15%] font-medium">
+                                    <Skeleton className="mx-auto h-6 w-4/12" />
+                                </TableCell>
+                                <TableCell className="w-[15%] font-medium">
+                                    <Skeleton className="mx-auto h-6 w-4/12" />
+                                </TableCell>
+                                <TableCell className="w-[15%] font-medium">
+                                    <Skeleton className="h-6 w-11/12" />
+                                </TableCell>
+                                <TableCell className="mr-5 flex items-center justify-end gap-x-4">
+                                    <Skeleton className="h-9 w-5" />
+                                </TableCell>
                             </TableRow>
-                        </TableHeader>
-                        <TableBody className="text-base">
-                            {Array.from({ length: 6 }).map((_, index) => (
-                                <TableRow>
-                                    <TableCell className="w-[5%] font-medium">
-                                        <Skeleton className=" h-11 w-6" />
-                                    </TableCell>
-                                    <TableCell className=" w-[20%] font-medium">
-                                        <Skeleton className="h-9 w-7/12" />
-                                    </TableCell>
-                                    <TableCell className="w-[30%] font-medium">
-                                        <Skeleton className="h-9 w-9/12" />
-                                    </TableCell>
-                                    <TableCell className="w-[15%] font-medium">
-                                        <Skeleton className="mx-auto h-6 w-4/12" />
-                                    </TableCell>
-                                    <TableCell className="w-[15%] font-medium">
-                                        <Skeleton className="mx-auto h-6 w-4/12" />
-                                    </TableCell>
-                                    <TableCell className="w-[15%] font-medium">
-                                        <Skeleton className="h-6 w-11/12" />
-                                    </TableCell>
-                                    <TableCell className="mr-5 flex items-center justify-end gap-x-4">
-                                        <Skeleton className="h-9 w-5" />
-                                    </TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                    <Skeleton className="mx-auto mt-4 h-9 w-1/4" />
-                </CardContent>
-            </Card>
-        </div>
+                        ))}
+                    </TableBody>
+                </Table>
+                <Skeleton className="mx-auto mt-4 h-9 w-1/4" />
+            </CardContent>
+        </Card>
     )
 }
 

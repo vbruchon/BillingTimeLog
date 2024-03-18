@@ -1,7 +1,7 @@
 import { LinkType, SideBar } from '@/components/layout/dashboard/SideBar'
 import { FileText, FolderKanban } from 'lucide-react'
 import { PropsWithChildren } from 'react'
-import { getCustomerById } from '../../admin/dashboard/customers/customers.query'
+import { getCustomerById } from '../../admin/dashboard/(management)/customers/customers.query'
 
 const LayoutCustomerDashboard = async ({
     children,
@@ -21,9 +21,9 @@ const LayoutCustomerDashboard = async ({
     ]
     const customer = await getCustomerById(params.customerId)
     return (
-        <div className="flex h-screen">
+        <div className="mx-3 flex min-h-screen">
             <SideBar links={customerLinks} customer={customer} />
-            <div className="mx-4 mt-4 flex-1 overflow-auto rounded-lg p-4">
+            <div className="mt-4 flex-1 overflow-auto p-4 lg:ml-3">
                 {children}
             </div>
         </div>
