@@ -1,5 +1,5 @@
-import { getRequiredAuthSession } from '../../../../src/lib/auth'
-import { prisma } from '../../../../src/lib/db/prisma'
+import { getRequiredAuthSession } from '@/lib/auth'
+import { prisma } from '@/lib/db/prisma'
 
 type GetCustomersOptions = {
     page?: number

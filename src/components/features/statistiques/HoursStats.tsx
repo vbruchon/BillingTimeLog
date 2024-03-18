@@ -5,7 +5,7 @@ import {
     getCountOfHoursByInvoiceStatus,
     getAverageDurationByInvoiceStatus,
     getTotalRevenue,
-} from '../../../../app/admin/dashboard/hours/hourEntry.query'
+} from '../../../../app/admin/dashboard/(management)/hours/hourEntry.query'
 import { CardStats } from '@/components/features/statistiques/CardStats'
 
 export const HoursStats = async () => {
@@ -13,7 +13,7 @@ export const HoursStats = async () => {
     const totalHoursUnBilled = await getCountOfHoursByInvoiceStatus('unbilled')
     const totalHoursBilled = await getCountOfHoursByInvoiceStatus('billed')
     return (
-        <Card className="flex flex-wrap items-center gap-4 bg-gray-800 p-4">
+        <div className="flex flex-wrap items-center gap-4 p-4">
             <CardStats
                 icon={<Timer />}
                 value={hours}
@@ -30,6 +30,6 @@ export const HoursStats = async () => {
                 indicator="Heures facturés"
                 className="text-[#43b812]"
             />
-        </Card>
+        </div>
     )
 }

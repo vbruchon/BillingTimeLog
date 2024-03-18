@@ -45,10 +45,10 @@ export const HourEntryFormDataPicker = forwardRef<
                         <PopoverTrigger asChild>
                             <Button
                                 ref={ref}
-                                variant={'outline'}
+                                variant={'secondary'}
                                 className={cn(
                                     'w-[280px] justify-start text-left font-normal',
-                                    !field.value && 'text-muted-foreground'
+                                    !field.value && 'text-foreground'
                                 )}
                             >
                                 <CalendarIcon className="mr-2 size-4" />

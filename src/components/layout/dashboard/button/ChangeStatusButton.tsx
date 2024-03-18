@@ -1,7 +1,7 @@
 'use client'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
-import { changeProjectStatus } from '../../../../../app/admin/dashboard/projects/[projectId]/project.action'
+import { changeProjectStatus } from '../../../../../app/admin/dashboard/(management)/projects/[projectId]/project.action'
 
 export type ChangeStatusButtonProps = {
     id: string

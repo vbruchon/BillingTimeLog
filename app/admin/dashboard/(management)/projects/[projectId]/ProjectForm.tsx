@@ -16,7 +16,7 @@ export type ProjectFormProps = {
         id: string
         companyName: string
         email: string
-        logo: string
+        logo: string | null
     }[]
 }
 

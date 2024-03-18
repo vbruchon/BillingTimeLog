@@ -22,7 +22,7 @@ export type ProjectFormSelectCustomerProps = {
               id: string
               companyName: string
               email: string
-              logo: string
+              logo: string | null
           }
         | null
         | undefined
@@ -31,7 +31,7 @@ export type ProjectFormSelectCustomerProps = {
               id: string
               companyName: string
               email: string
-              logo: string
+              logo: string | null
           }[]
         | null
         | undefined
@@ -62,7 +62,9 @@ export const ProjectFormSelectCustomer = ({
                                     placeholder={
                                         defaultValue ? (
                                             <CustomerItem
-                                                logo={projectCustomer?.logo}
+                                                logo={
+                                                    projectCustomer?.logo ?? ''
+                                                }
                                                 companyName={
                                                     projectCustomer?.companyName
                                                 }
@@ -85,7 +87,7 @@ export const ProjectFormSelectCustomer = ({
                                               className="cursor-pointer px-4 py-2 hover:bg-gray-200"
                                           >
                                               <CustomerItem
-                                                  logo={customer.logo}
+                                                  logo={customer.logo ?? ''}
                                                   companyName={
                                                       customer.companyName
                                                   }
@@ -99,7 +101,7 @@ export const ProjectFormSelectCustomer = ({
                                               className="cursor-pointer px-4 py-2 hover:bg-gray-200"
                                           >
                                               <CustomerItem
-                                                  logo={customer.logo}
+                                                  logo={customer.logo ?? ''}
                                                   companyName={
                                                       customer.companyName
                                                   }

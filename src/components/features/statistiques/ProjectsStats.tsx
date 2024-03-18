@@ -4,7 +4,7 @@ import {
     getCountOfProjects,
     getPercentageCompletedProjects,
     getPercentageInProgressProject,
-} from '../../../../app/admin/dashboard/projects/projects.query'
+} from '../../../../app/admin/dashboard/(management)/projects/projects.query'
 import { CardStats } from '@/components/features/statistiques/CardStats'
 
 export const ProjectStats = async () => {
@@ -13,7 +13,7 @@ export const ProjectStats = async () => {
     const percentageCompletedProjects = await getPercentageCompletedProjects()
 
     return (
-        <Card className="flex flex-wrap items-center gap-4 bg-gray-800 p-4">
+        <div className="flex flex-wrap items-center gap-4 p-4">
             <CardStats
                 icon={<FolderKanban size={32} />}
                 value={projectsCount}
@@ -34,6 +34,6 @@ export const ProjectStats = async () => {
                 percentage={true}
                 className="text-[#43b812]"
             />
-        </Card>
+        </div>
     )
 }

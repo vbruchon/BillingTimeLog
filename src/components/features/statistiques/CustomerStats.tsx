@@ -3,7 +3,7 @@ import { UserPlus, Users } from 'lucide-react'
 import {
     getCountNewCustomers,
     getCountofCustomers,
-} from '../../../../app/admin/dashboard/customers/customers.query'
+} from '../../../../app/admin/dashboard/(management)/customers/customers.query'
 import { CardStats } from '@/components/features/statistiques/CardStats'
 import { Typography } from '@/components/ui/Typography'
 
@@ -16,7 +16,7 @@ export const CustomerStats = async ({ userId }: CustomerStatsProps) => {
     const [currentYearNewCustomers, percentageNewCustomers] =
         await getCountNewCustomers(userId)
     return (
-        <Card className="flex flex-wrap items-center gap-4 bg-gray-800 p-4">
+        <div className="flex flex-wrap items-center gap-4 p-4">
             <CardStats
                 icon={<Users size={32} />}
                 value={customersCount}
@@ -30,6 +30,6 @@ export const CustomerStats = async ({ userId }: CustomerStatsProps) => {
                 percentageValue={percentageNewCustomers}
                 className="text-[#43b812]"
             />
-        </Card>
+        </div>
     )
 }

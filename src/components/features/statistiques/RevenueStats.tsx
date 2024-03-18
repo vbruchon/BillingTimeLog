@@ -5,7 +5,7 @@ import {
     getTotalRevenue,
     getTotalRevenueForCurrentYear,
     getTotalRevenueForCurrentMonth,
-} from '../../../../app/admin/dashboard/hours/hourEntry.query'
+} from '../../../../app/admin/dashboard/(management)/hours/hourEntry.query'
 
 export type RevenueStatsProps = {
     userId: string
@@ -17,7 +17,7 @@ export const RevenueStats = async () => {
     const revenueCurrentMonth = await getTotalRevenueForCurrentMonth()
 
     return (
-        <Card className="flex flex-wrap items-center gap-4 bg-gray-800 p-4">
+        <div className="flex flex-wrap items-center gap-4 p-4">
             <CardStats
                 icon={<Euro />}
                 value={Number(revenueTotal)}
@@ -33,6 +33,6 @@ export const RevenueStats = async () => {
                 value={Number(revenueCurrentMonth)}
                 indicator="Revenue CurrentMonth"
             />
-        </Card>
+        </div>
     )
 }
